@@ -1,0 +1,20 @@
+{% extends 'adminbase/adminbase.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/addcategory/addcategory.css' %}">
+{% endblock %}
+{% block start %}
+<div class="addCategoryContainer">
+    <h2>Add Category</h2>
+    <form method="post" class="category_form">
+        {% csrf_token %}
+        <input type="text" placeholder="Add Food Category" name="category" class="addCategoryInputTag">
+        <button class="addCategoryBtn">Add</button>
+    </form>
+
+    <div class="recently-added-categories">
+        <h2>Recently Added Categories</h2>
+    </div>
+</div>
+
+{% endblock %}

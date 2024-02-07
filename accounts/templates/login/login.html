@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <form class="login-form" method="post">
+        {% csrf_token %}
+        <h1 class="login-title">Login</h1>
+        <div class="input-container">
+            <label for="username-field" class="label-text">Username</label>
+            <div class="input-field">
+                <input name="username" type="text" id="username-field" placeholder="Username" class="input-tags">
+                <div class="login-icons">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <label for="password-field" class="label-text">Password</label>
+            <div class="input-field">
+                <input name="password" type="password" placeholder="Password" id="password-field" class="input-tags">
+                <div class="login-icons" id="password-icon">
+                    <!-- icon will be added through js -->
+                </div>
+            </div>
+        </div>
+        <div class="new-user">
+            <h4>New to clgcanteen? <a href="{% url 'signup' %}">Create account</a></h4>
+        </div>
+        <button type="submit" id="submit-btn">Submit</button>
+    </form>
+
+    <script src="{% static 'js/login/login.js' %}"></script>
+</body>
+
+</html>

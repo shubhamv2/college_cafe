@@ -1,0 +1,30 @@
+.category_form{
+    margin-top: 1em;
+    display: flex;
+    width: 70%;
+    border: 1px solid rgb(0, 185, 0);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+}
+.addCategoryInputTag{
+    width: 100%;
+    padding: .5em;
+    outline: none;
+    border: none;
+}
+.addCategoryBtn{
+    background-color: rgb(0, 185, 0);
+    border: none;
+    color: white;
+    padding: .5em;
+    width: 100px;
+    font-size: 1.1em;
+}
+
+
+.recently-added-categories{
+    margin-top: 1em;
+}

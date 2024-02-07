@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/adminbase/adminbase.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <header class="nav-header">
+        <nav class="navbar">
+            <a class="brand-name" href="{% url 'dashboard' %}">
+                CollegeCanteen Admin
+            </a>
+            <a href="" class="admin-profile"><img src="{% static 'img/male_profile.png' %}" alt=""></a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="left-container">
+            <a href="{% url 'dashboard' %}" class="left-container-items">
+                <span class="left-item-wrapper"><i class="fa-solid fa-gauge"></i>Dashboard</span>
+            </a>
+            <div class="left-main-container dropdown-menu">
+                <div class="left-container-items">
+                    <span class="left-item-wrapper"><i class="fa-regular fa-user"></i>Customer</span>
+                    <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
+                </div>
+                <div class="dropdown-items-container">
+                    <a href="{% url 'adduser' %}" class="dropdown-items">Add Customer</a>
+                    <a href="{% url 'manageusers' %}" class="dropdown-items">Manage Customers</a>
+                </div>
+            </div>
+
+
+
+            <div class="left-main-container dropdown-menu">
+                <div class="left-container-items ">
+                    <span class="left-item-wrapper"><i class="fa-solid fa-list"></i>Food Category</span>
+                    <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
+                </div>
+                <div class="dropdown-items-container">
+                    <a href="{% url 'addcategory' %}" class="dropdown-items">Add Category</a>
+                    <a href="{% url 'managecategories' %}" class="dropdown-items">Manage Categories</a>
+                </div>
+            </div>
+
+
+
+            <div class="left-main-container dropdown-menu">
+                <div class="left-container-items ">
+                    <span class="left-item-wrapper"> <i class="fa-solid fa-utensils"></i>Food</span>
+                    <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
+
+                </div>
+                <div class="dropdown-items-container">
+                    <a href="{% url 'addfood' %}" class="dropdown-items">Add Food</a>
+                    <a href="{% url 'managefoods' %}" class="dropdown-items">Manage Foods</a>
+                </div>
+            </div>
+            <div class="left-main-container dropdown-menu">
+                <div class="left-container-items ">
+                    <span class="left-item-wrapper"><i class="fa-solid fa-file-invoice-dollar"></i>Invoice</span>
+
+                    <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
+
+                </div>
+                <div class="dropdown-items-container">
+                    <a href="" class="dropdown-items">Add Invoice</a>
+                    <a href="" class="dropdown-items">Manage Invoices</a>
+                </div>
+            </div>
+
+            <a href="{% url 'reports' %}" class="left-container-items">
+
+                <span class="left-item-wrapper"><i class="fa-solid fa-flag"></i>Reports</span>
+
+            </a>
+            <div class="left-container-items">
+                <span class="left-item-wrapper"><i class="fa-solid fa-gear"></i>Settings</span>
+                <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
+
+            </div>
+        </div>
+        <div class="right-container">
+            {% block start %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p>&copy; {% now 'Y' %} CollegeCanteen. All rights reserved</p>
+    </footer>
+    <script src="{% static 'js/adminbase/adminbase.js' %}"></script>
+    {% block extra_js %}
+    {% endblock %}
+</body>
+
+</html>

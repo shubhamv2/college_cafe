@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/signup/signup.css' %}">
+</head>
+<body>
+    <form class="new-user" method="post">
+        {% csrf_token %}
+        <h1 class="signup-title">SignUp</h1>
+        <div class="input-container">
+            <label for="name" class="input-label">Full Name</label>
+            <input name="uname" class="input-tag" type="text" id="name" placeholder="Full name" >
+        </div>
+       
+        <div class="input-container">
+            <label for="email" class="input-label">Email</label>
+            <input name="uemail" class="input-tag" type="email" id="email" placeholder="Email">
+        </div>
+        <div class="input-container">
+            <label for="phoneNo" class="input-label">Phone</label>
+            <input name="uphone" class="input-tag" type="phone" placeholder="Phone">
+        </div>
+        <div class="input-container">
+            <label for="password" class="input-label">Password</label>
+            <input name="upassword" class="input-tag" type="password" placeholder="Password">
+        </div>
+        <div class="input-container">
+            <label for="cfPassword" class="input-label">Confirm password</label>
+            <input name="confpassword" id="cfPassword" class="input-tag" type="password" placeholder="Confirm password">
+        </div>
+        <div class="login-user">
+            <h4>Already have an account? <a href="{% url 'login' %}">Login</a></h4>
+        </div>
+        <button type="submit" id="submit-btn">Submit</button>
+    </form>
+    <script src="{% static 'js/signup/signup.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+{% extends "base/base.html" %}
+{% block start %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+{% endblock %}
+
+
+<div class="main-section">
+    <div class="inner-main">
+        <h3 class="second-title">Highlights</h3>
+        <h1 class="first-title">Where every ingredient tells a story</h1>
+        <a href="{% url 'menu' category_name='all' %}" class="view-btn">View Our Menus</a>
+    </div>
+
+</div>
+
+<div class="third-section">
+    <div class="third-section-title">
+        <h3 class="second-sec-title">Our Categories</h3>
+        <h1 class="first-sec-title">View Our Categories</h1>
+    </div>
+    <div class="category-container">
+        <a href="{% url 'menu' category_name='vegetarian' %}">
+            <div class="category-card">
+                <img src="{% static 'imgs/home/shahi paneer.jpeg' %}" alt="">
+                <h2>Vegetarian Food</h2>
+            </div>
+        </a>    
+        <a href="{% url 'menu' category_name='non-vegetarian' %}">
+            <div class="category-card">
+                <img src="{% static 'imgs/home/chickencurry.jpg' %}" alt="">
+                <h2>Non Vegetarian Food</h2>
+            </div>
+        </a>
+        <a href="{% url 'menu' category_name='healthy' %}">
+            <div class="category-card">
+                <img src="{% static 'imgs/home/main-section.jpg' %}"" alt="">
+                    <h2>Healthy Food</h2>
+                </div>
+            </a>
+            <a href="{% url 'menu' category_name='snacks' %}">
+                <div class=" category-card">
+                    <img src="{% static 'imgs/home/samosa.jpg' %}" alt="">
+                    <h2>Snacks</h2>
+                </div>
+        </a>
+    </div>
+</div>
+
+<div class="second-section">
+    <div class="sec-section-info">
+        <div class="section-info-def">
+            <h3 class="second-sec-title">New Menu</h3>
+            <h1 class="first-sec-title">View Our Menus</h1>
+        </div>
+        <a href="{% url 'menu' category_name='all' %}" class="viewAll-btn view-All-btn">
+            View All
+        </a>
+    </div>
+
+    <div class="swiper-container swiper swiper1">
+        <div class="swiper-wrapper">
+            {% for item  in items %}
+            <div class="card swiper-slide">
+                <div class="card-img-container">
+                    <img class="card-img" src="media/{{item.food_image}}" alt="">
+                </div>
+                <div class="card-text">
+                    <h2>{{item.food_name}}</h2>
+                    <p>{{item.food_desc | truncatechars:100}}</p>
+                    <div class="price-btn">
+                        <p><span class="price-tag">Price</span> &#x20B9;{{item.food_price}}</p>
+                        
+                        <form action="{% url 'add_to_cart' item.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="add-btn order-btn"
+                            value="Add to Cart"></input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Add more slides as needed -->
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <div class="swiper-container swiper swiper2">
+        <div class="swiper-wrapper">
+          
+            
+            {% for item  in items %}
+            <div class="card swiper-slide">
+                <div class="card-img-container">
+                    <img class="card-img" src="media/{{item.food_image}}" alt="">
+                </div>
+                <div class="card-text">
+                    <h2>{{item.food_name}}</h2>
+                    <p>{{item.food_desc | truncatechars:100}}</p>
+                    <div class="price-btn">
+                        <p><span class="price-tag">Price</span> &#x20B9;{{item.food_price}}</p>
+                        <form action="{% url 'add_to_cart' item.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="add-btn order-btn"
+                            value="Add to Cart"></input>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+            <!-- Add more slides as needed -->
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<div class="feedback-section">
+    <div class="feedback-title">
+        <h3 class="second-sec-title">Testimonials</h3>
+        <h1 class="first-sec-title">What Our Client Say</h1>
+    </div>
+
+    <div class="swiper-container swiper swiper3">
+        <div class="swiper-wrapper card-wrapper">
+            
+            <div class="fb-card swiper-slide">
+                <div class="feedback-user">
+                    <div class="fb-user-profile">
+                        <img src="../img/PngItem_5087266.png" alt="" class="fb-profile-img">
+                    </div>
+                    <div class="user-fb-date">
+                        <h3 class="user-name">Alex Rodriguez</h3>
+                        <span class="post-date">8 jan 2023</span>
+                    </div>
+                </div>
+                <div class="feedback-content">
+                    <p>"Impressed with the canteen's fresh options. The salad was crisp, and the sandwiches were
+                        a flavorful treat. Great for a healthy and quick lunch!"</p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% block extra_js %}
+<script src="{% static 'js/home/home.js' %}"></script>
+{% endblock %}
+
+
+{% endblock %}

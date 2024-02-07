@@ -1,0 +1,40 @@
+{% extends 'adminbase/adminbase.html' %}
+{% block start %}   
+    <h2>Dashboard</h2>
+    <div class="dashboard-box">
+
+        <div class="grid-container">
+            <div class="grid-items grid-item1">
+                <div class="grid-inner-item">
+                    <i class="fa-regular fa-user"></i>
+                    <p class="total-number">{{totalUsers}}</p>
+                </div>
+                <p class="dashboard-icon-title">Total Customers</p>
+            </div>
+            <div class="grid-items grid-item2">
+                <div class="grid-inner-item">
+                    <i class="fa-solid fa-money-bill"></i>
+                    <p class="total-number">&#8377; 500</p>
+                </div>
+                <p class="dashboard-icon-title">Revenue</p>
+            </div>
+            <div class="grid-items grid-item3">
+                <div class="grid-inner-item">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <p class="total-number">{{currentDate | date:"j F"}}</p>
+                </div>
+                <p class="dashboard-icon-title">Calender</p>
+            </div>
+            <div class="grid-items grid-item4">
+                <div class="grid-inner-item">
+                    <i class="fa-solid fa-users"></i>
+                    <p class="total-number">10</p>
+                </div>
+                <p class="dashboard-icon-title">Total Orders</p>
+            </div>
+        </div>
+        <div class="admin-graph">
+            graph
+        </div>
+    </div>
+{% endblock %}

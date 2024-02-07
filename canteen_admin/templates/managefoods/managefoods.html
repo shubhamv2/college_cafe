@@ -1,0 +1,32 @@
+{% extends 'adminbase/adminbase.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/managefoods/managefoods.css' %}">
+{% endblock %}
+{% block start %}
+<div class="food-items-container">
+    <h1>Manage Food Items </h1>
+    {% for item in foodItems %}
+        <div class="food-item-cards">
+            <div class="food-items">
+
+                <div class="food-img-container">
+                    <img src="/media/{{item.food_image}}" alt="" class="food-img">
+                </div>
+                <div class="food-details">
+                    <h3>
+                        {{item.food_name}}
+                        
+                    </h3>
+                </div>
+            </div>
+            <div class="manage-btns">
+                <a class="edit-item-btn" href=""><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="{% url 'deletefooditem' item.id %}" class="delete-item-btn"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

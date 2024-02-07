@@ -1,0 +1,51 @@
+.aboutpage-main-heading{
+    margin: .5em 0;
+    font-weight: 400;
+    color: rgb(0, 185, 0);
+}
+
+.aboutpage-main-para{
+    font-size: 1.2em;
+    font-weight: 300;
+}
+.about-wrapper{
+    display: flex;
+    margin-top: 1.5em;
+    align-items: center;
+    gap: 2em;
+}
+h4, strong{
+    font-weight: 400;
+    margin-bottom: .3em;
+}
+
+
+.left-box{
+    flex:.4;
+}
+.left-box img{
+    border-radius: 20px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.right-box-heading{
+    margin-bottom: .7em;
+    color: rgb(0, 185, 0);
+    font-weight: 400;
+}
+
+.right-box-para{
+    margin-bottom: .3em;
+    line-height: 1.6em;
+    font-weight: 300;
+}
+.right-box{
+    flex: .6;
+}
+
+
+.other-wrapper{
+    margin-top: 1.5em;
+}

@@ -1,0 +1,100 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about/about.css' %}">
+{% endblock %}
+{% block start %}
+<div class="about-container">
+    <h1 class="aboutpage-main-heading">About Us</h1>
+    <p class="aboutpage-main-para">Welcome to ClgCanteen – Where Culinary Delights Meet Convenience!</p>
+
+    <div class="about-wrapper">
+        <div class="left-box">
+            <img src="{% static 'imgs/about/canteen_img.jpg' %}" alt="">
+        </div>
+        <div class="right-box">
+            <h3 class="right-box-heading">Our Story</h3>
+            <p class="right-box-para">At ClgCanteen, we believe that good food is not just a necessity but an
+                experience. Established in [Year], we
+                embarked on a journey to redefine the canteen experience by combining delicious cuisine with modern
+                convenience.
+                Our passion for serving mouthwatering dishes and our commitment to efficiency have made us a favorite
+                among both
+                patrons and staff.</p>
+        </div>
+    </div>
+
+
+    <div class="about-wrapper">
+        <div class="right-box">
+            <h3 class="right-box-heading">Our Vision</h3>
+            <p class="right-box-para"> <strong>Elevating Your Culinary Experience:</strong> We envision a canteen that
+                goes beyond the
+                mundane, where every meal is a
+                delightful experience. From breakfast to lunch, and all the way to dinner, we are here to cater to your
+                cravings
+                with a diverse menu that reflects our commitment to quality.</p>
+            <p class="right-box-para"> <strong>Efficiency at its Core:</strong> With the latest technology and
+                streamlined processes, we aim to make every visit
+                to our
+                canteen a seamless and time-efficient experience. No more waiting in long lines or compromising on taste
+                – we've
+                got it all covered.</p>
+        </div>
+        <div class="left-box">
+            <img src="{% static 'imgs/about/about-page-img2.jpg' %}" alt="">
+        </div>
+    </div>
+
+
+
+    <div class="about-wrapper">
+        <div class="left-box">
+            <img src="{% static 'imgs/about/about-image3.jpg' %}" alt="">
+        </div>
+        <div class="right-box">
+            <h3 class="right-box-heading">What Sets Us Apart</h3>
+            <div>
+
+                <h4>Fresh and Locally Sourced Ingredients</h4>
+                <p class="right-box-para">Fresh and Locally Sourced Ingredients
+                    We take pride in sourcing the freshest ingredients locally, ensuring that every dish is a
+                    celebration of flavors
+                    and supports our community.</p>
+            </div>
+            <div>
+                <h4 class=""> Diverse Menu Selection
+                </h4>
+                <p class="right-box-para">Our menu is a culinary journey, offering a wide array of options to suit every palate. From classic comfort
+                    foods to innovative creations, there's something for everyone.
+                </p>
+            </div>
+            <div>
+                <h4>
+                    Tech-Driven Convenience
+                </h4>
+                <p class="right-box-para">Ordering your favorite meals is now just a click away. Our user-friendly app and online ordering system bring
+                    convenience to the forefront, allowing you to enjoy a delicious meal with ease.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="other-wrapper">
+        <h3 class="right-box-heading">Our Commitment to Sustainability</h3>
+        <p class="right-box-para">As stewards of the environment, we are committed to minimizing our ecological footprint. From eco-friendly
+            packaging to waste reduction initiatives, we strive to make a positive impact on our planet.</p>
+    </div>
+
+    <div class="other-wrapper">
+        <h3 class="right-box-heading">Join Us on this Culinary Adventure!</h3>
+        <p class="right-box-para">Whether you're a regular visitor or it's your first time exploring [Your Canteen Name], we welcome you to join
+            us on this culinary adventure. Our team is dedicated to providing you with an exceptional dining experience, one
+            plate at a time.
+    
+            Thank you for choosing [Your Canteen Name] – where every meal is a celebration!</p>
+
+    </div>
+
+
+</div>
+{% endblock %}

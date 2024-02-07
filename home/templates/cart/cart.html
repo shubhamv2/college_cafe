@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+{% endblock %}
+{% block start %}
+<form>
+    <div class="checkout-container">
+        <div class="checkout-box1">
+            <h3 class="checkout-heading">Billing details</h3>
+            <div class="name-container">
+                <div class="bill-cont">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" placeholder="First name">
+                </div>
+                <div class="bill-cont">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" placeholder="Last name">
+                </div>
+            </div>
+            <div class="bill-cont">
+                <label for="">Street address</label>
+                <input type="text" placeholder="House number and stree name">
+                <input type="text" placeholder="Apartment, suite, unite, etc. (optional)">
+            </div>
+            <div class="bill-cont">
+                <label for="">Town / City</label>
+                <input type="text" placeholder="First name">
+            </div>
+            <div class="bill-cont">
+                <label for="">State</label>
+                <input type="text" placeholder="State">
+            </div>
+            <div class="bill-cont">
+                <label for="">Pin</label>
+                <input type="text" placeholder="Pine code">
+            </div>
+            <div class="bill-cont">
+                <label for="">Phone</label>
+                <input type="text" placeholder="Phone number">
+            </div>
+            <div class="bill-cont">
+                <label for="">Email</label>
+                <input type="email" placeholder="Email">
+            </div>
+        </div>
+        <div class="checkout-box2">
+            <h3 class="checkout-heading">Your Cart</h3>
+            <div class="product-item-container">
+                <div class="cart-container">
+                    {% if cart_items|length <= 0 %} <p>Cart is Empty</p>
+                        {% else %}
+                        {% for cart_item in cart_items %}
+                        <div class="cart-item">
+                            <img class="cart-item-image" src="/media/{{cart_item.food_item.food_image}}" alt="">
+                            <div class="cart-item-details">
+                                <span class="cart-item-name">{{cart_item.food_item.food_name}}</span>
+                                <span class="cart-item-other-details">{{cart_item.quantity}}</span>
+                                <span class="cart-item-other-details">&#8377;{{cart_item.food_item.food_price}}</span>
+                                <span class="cart-item-other-details">
+                                    <a href="{% url 'remove_from_cart' cart_item.food_item.id %}"><i
+                                            class="fa-solid fa-xmark"></i></a>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        {% endfor %}
+
+                        <hr>
+                        {% endif %}
+
+
+
+
+
+                </div>
+
+                <div class="payment-options">
+                    <label for="cash" class="cash-option"><input id="cash" type="radio" name="payment" value="cash">Cash
+                        on
+                        delivery</label>
+                    <div class="cash-option">
+                        Pay with cash upon delivery
+                    </div>
+                    <div class="online-option">
+                        <div class="online-cont">
+                            <input type="radio" name="payment" id="" value="online">
+                            <label for="">PayPal</label>
+                        </div>
+                        <img src="../img/paypal.png" alt="">
+                    </div>
+                </div>
+
+                <button class="order-place-btn">Place Order</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+{% block extra_js %}
+<script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}
+{% endblock %}

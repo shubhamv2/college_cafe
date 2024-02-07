@@ -1,0 +1,51 @@
+.customer-form{
+    width: 100%;
+
+}
+.admin-dashboard-heading{
+   color: rgb(0, 185, 0);
+}
+
+.customer-detail-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .2em;
+    margin-top: .7em;
+}
+
+.customer-info{
+    padding: .7em;
+    font-size: 1em;
+    outline: none;
+    width: 500px;
+    border: none;
+    background-color: #F2F4F4;
+    border-radius: 5px;
+}
+
+label{
+    font-size: .9em;
+}
+.profile-input{
+    padding-left: 0;
+    background-color: transparent;
+
+    
+}
+
+.customer-info::placeholder{
+    font-size: .9em;
+}
+
+.add-button{
+    width: 500px;
+    margin-top: 1em;
+    font-size: 1em;
+    padding: .7em 0;
+    background: rgb(0, 185, 0);
+    border: none;
+    color: white;
+    border-radius: .2em;
+    font-weight: 500;
+}
