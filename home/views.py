@@ -4,6 +4,7 @@ from .models import *
 from canteen_admin.models import *
 from django.db.models import Q
 from django.http import Http404
+from django.contrib import messages
 
 
 
@@ -60,6 +61,11 @@ def contact(request):
         email = request.POST.get('email')
         message = request.POST.get('query')
 
+        if not all([name, phone, email,message]):
+            messages.error(request, 'All fields are required')
+            return redirect('contact')
+
+
         report = Report.objects.create(
             user_name = name,
             user_email = email,
@@ -67,15 +73,19 @@ def contact(request):
             message = message,
         )
         report.save()
+        
     return render(request, 'contact/contact.html')
 
 login_required(login_url='login')
 def cartPage(request):
     if request.user.is_authenticated:
         try:
+            total_amount = 0
             user_cart = Cart.objects.get(user=request.user)
             cart_items = user_cart.cartitem_set.all()
-            context = {'cart_items': cart_items}
+            for cart_item in cart_items:
+                total_amount += (cart_item.quantity * cart_item.food_item.food_price)
+            context = {'cart_items': cart_items, 'total_amount':total_amount}
         except Cart.DoesNotExist:
             user_cart = None
             cart_items = []
@@ -113,3 +123,83 @@ def remove_from_cart(request, item_id):
         return redirect('cart')
     except Cart.DoesNotExist:
         raise Http404('Cart not found')
+    
+
+def increment_item(request, item_id):
+    try:
+        cart = Cart.objects.get(user = request.user)
+        food_item = FoodItem.objects.get(pk = item_id)
+        try:
+            cart_item = CartItem.objects.get(cart = cart, food_item = food_item)
+            cart_item.quantity += 1
+            cart_item.save()
+        except CartItem.DoesNotExist:
+            raise Http404("CartItem not found.")
+        return redirect('cart')
+    except Cart.DoesNotExist:
+        raise Http404('Cart not found')
+    
+def decrement_item(request, item_id):
+    try:
+        cart = Cart.objects.get(user = request.user)
+        food_item = FoodItem.objects.get(pk = item_id)
+        try:
+            cart_item = CartItem.objects.get(cart = cart, food_item = food_item)
+            if(cart_item.quantity > 1):
+                cart_item.quantity -= 1
+            
+            cart_item.save()
+        except CartItem.DoesNotExist:
+            raise Http404("CartItem not found.")
+        return redirect('cart')
+    except Cart.DoesNotExist:
+        raise Http404('Cart not found')
+    
+
+
+@login_required(login_url='login')
+def place_order(request):
+    if request.user.is_authenticated:
+            total_amount = 0
+            user_cart = Cart.objects.get(user=request.user)
+            cart_items = user_cart.cartitem_set.all()
+
+            item_ids = [cart_item.food_item.id for cart_item in cart_items]
+
+            for cart_item in cart_items:
+                total_amount += (cart_item.quantity * cart_item.food_item.food_price)
+
+            if request.method == 'POST':
+                food_items = FoodItem.objects.filter(pk__in = item_ids)
+                total_price = total_amount
+                first_name = request.POST.get('first-name')
+                last_name = request.POST.get('last-name')
+                address = request.POST.get('address')
+                city = request.POST.get('city')
+                state = request.POST.get('state')
+                pin = request.POST.get('pin')
+                phone = request.POST.get('phone')
+                if not all([first_name, last_name, address, city, state, pin, phone]):
+                    messages.error(request, 'All fields are required')
+                    return redirect('cart')
+                order = Order.objects.create(
+                    total_price = total_price,
+                    first_name = first_name,
+                    last_name = last_name,
+                    city_name = city,
+                    state_name = state,
+                    pin_code = pin,
+                    phone_number = phone,
+                    address = address
+                )
+                order.food_items.add(*food_items)
+                order.save()
+
+                Cart.objects.filter(user = request.user).delete()
+        
+
+    return redirect('cart')
+
+
+def order_success(request):
+    return render(request, 'ordersuccess/ordersuccess.html')

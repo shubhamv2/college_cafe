@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import date
 from accounts.models import User
 from .models import Category, FoodItem
@@ -106,3 +106,11 @@ def deleteFoodItem(reqeust, id):
     item_to_delete = FoodItem.objects.get(id = id)
     item_to_delete.delete()
     return redirect('managefoods')
+
+
+def editUser(reqeust, id):
+    userInstance = get_object_or_404(User, pk = id)
+    if reqeust.method == 'POST':
+        pass
+    context = {'userdetails':userInstance}
+    return render(reqeust, 'edituser/edituser.html',context)

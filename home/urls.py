@@ -6,6 +6,11 @@ urlpatterns = [
     path('contact/',views.contact, name='contact'),
     path('menu/<str:category_name>/',views.menu, name='menu'),
     path('cart/',views.cartPage, name='cart'),
+    path('cart/place_order/', views.place_order, name='placeorder'),
     path('add_to_cart/<int:item_id>/',views.add_to_cart, name="add_to_cart"),
-    path('remove_from_cart/<int:item_id>/',views.remove_from_cart, name="remove_from_cart")
+    path('remove_from_cart/<int:item_id>/',views.remove_from_cart, name="remove_from_cart"),
+    path('increment_item/<int:item_id>/',views.increment_item, name='increment'),
+    path('decrement_item/<int:item_id>/',views.decrement_item, name='decrement'),
+    path('cart/place_order/ordersuccess/',views.order_success,name="ordersuccess"),
+
 ]

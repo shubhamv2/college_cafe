@@ -4,45 +4,42 @@
 <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
 {% endblock %}
 {% block start %}
-<form>
+<form method="post" action="{% url 'placeorder' %}">
+    {% csrf_token %}
     <div class="checkout-container">
         <div class="checkout-box1">
             <h3 class="checkout-heading">Billing details</h3>
             <div class="name-container">
                 <div class="bill-cont">
                     <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" placeholder="First name">
+                    <input type="text" id="first-name" placeholder="First name" name="first-name">
                 </div>
                 <div class="bill-cont">
                     <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" placeholder="Last name">
+                    <input type="text" id="last-name" placeholder="Last name" name="last-name">
                 </div>
             </div>
             <div class="bill-cont">
-                <label for="">Street address</label>
-                <input type="text" placeholder="House number and stree name">
-                <input type="text" placeholder="Apartment, suite, unite, etc. (optional)">
+                <label for="">Address</label>
+                <input type="text" placeholder="House number and stree name" name="address">
             </div>
             <div class="bill-cont">
                 <label for="">Town / City</label>
-                <input type="text" placeholder="First name">
+                <input type="text" placeholder="City" name="city">
             </div>
             <div class="bill-cont">
                 <label for="">State</label>
-                <input type="text" placeholder="State">
+                <input type="text" placeholder="State" name="state">
             </div>
             <div class="bill-cont">
                 <label for="">Pin</label>
-                <input type="text" placeholder="Pine code">
+                <input type="text" placeholder="Pine code" name="pin">
             </div>
             <div class="bill-cont">
                 <label for="">Phone</label>
-                <input type="text" placeholder="Phone number">
+                <input type="text" placeholder="Phone number" name="phone">
             </div>
-            <div class="bill-cont">
-                <label for="">Email</label>
-                <input type="email" placeholder="Email">
-            </div>
+      
         </div>
         <div class="checkout-box2">
             <h3 class="checkout-heading">Your Cart</h3>
@@ -55,28 +52,29 @@
                             <img class="cart-item-image" src="/media/{{cart_item.food_item.food_image}}" alt="">
                             <div class="cart-item-details">
                                 <span class="cart-item-name">{{cart_item.food_item.food_name}}</span>
-                                <span class="cart-item-other-details">{{cart_item.quantity}}</span>
+                                <span class="cart-item-other-details cart-quantity">
+                                    <a href="{% url 'decrement' cart_item.food_item.id %}">&minus;</a>
+                                    <span>{{cart_item.quantity}}</span>
+                                    <a href="{% url 'increment' cart_item.food_item.id %}">&plus;</a>
+                                </span>
                                 <span class="cart-item-other-details">&#8377;{{cart_item.food_item.food_price}}</span>
-                                <span class="cart-item-other-details">
+                                <span class="cart-item-other-details remove-from-cart">
                                     <a href="{% url 'remove_from_cart' cart_item.food_item.id %}"><i
                                             class="fa-solid fa-xmark"></i></a>
                                 </span>
                             </div>
                         </div>
 
-
                         {% endfor %}
-
                         <hr>
-                        {% endif %}
+                    {% endif %}
 
-
-
-
-
+                    <p class="total-amount"><strong class="total-amount-strong">Total Amount:</strong> <span class="total-amount-price">&#8377; {{total_amount}}</span></p>
                 </div>
 
+
                 <div class="payment-options">
+                    <h3 class="checkout-heading">Payment Options</h3>
                     <label for="cash" class="cash-option"><input id="cash" type="radio" name="payment" value="cash">Cash
                         on
                         delivery</label>
@@ -92,7 +90,7 @@
                     </div>
                 </div>
 
-                <button class="order-place-btn">Place Order</button>
+                <button type="submit" class="order-place-btn">Place Order</button>
             </div>
 
         </div>

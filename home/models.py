@@ -20,8 +20,25 @@ class CartItem(models.Model):
 
 
 class Report(models.Model):
-    user_name = models.CharField(max_length = 50)
-    user_phone = models.CharField(max_length = 10)
-    user_email = models.EmailField()
-    message = models.TextField()
+    user_name = models.CharField(max_length = 50, blank=False, null=False)
+    user_phone = models.CharField(max_length = 10, blank=False, null=False)
+    user_email = models.EmailField(blank=False, null=False)
+    message = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add = True)
+
+
+
+class Order(models.Model):
+    food_items = models.ManyToManyField(FoodItem)
+    total_price = models.DecimalField(max_digits=10, decimal_places = 2)
+    first_name = models.CharField(max_length=50, blank=False, null=False)
+    last_name = models.CharField(max_length = 50, blank=False, null=False)
+    city_name = models.CharField(max_length=50, blank=False, null=False)
+    state_name = models.CharField(max_length=50,blank=False, null=False)
+    pin_code = models.CharField(max_length=10,blank=False, null=False)
+    phone_number = models.CharField(max_length=10, blank=False, null=False)
+    address = models.TextField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return f"Order ${self.id}"
