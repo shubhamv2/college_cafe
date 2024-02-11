@@ -23,7 +23,7 @@ passowrdIcon.addEventListener("click",(e)=>{
 const inputTags = document.querySelectorAll('.input-tags');
 inputTags.forEach((inputTag)=>{ 
     inputTag.addEventListener('focus',(e)=>{
-        e.target.parentElement.style.outline="1px solid black"
+        e.target.parentElement.style.outline="1px solid rgb(0,185,0)"
     });
     inputTag.addEventListener('blur',(e)=>{
         e.target.parentElement.style.outline="";

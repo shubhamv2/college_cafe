@@ -90,40 +90,6 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
-    <div class="swiper-container swiper swiper2">
-        <div class="swiper-wrapper">
-          
-            
-            {% for item  in items %}
-            <div class="card swiper-slide">
-                <div class="card-img-container">
-                    <img class="card-img" src="media/{{item.food_image}}" alt="">
-                </div>
-                <div class="card-text">
-                    <h2>{{item.food_name}}</h2>
-                    <p>{{item.food_desc | truncatechars:100}}</p>
-                    <div class="price-btn">
-                        <p><span class="price-tag">Price</span> &#x20B9;{{item.food_price}}</p>
-                        <form action="{% url 'add_to_cart' item.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" class="add-btn order-btn"
-                            value="Add to Cart"></input>
-                        </form> 
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-
-
-            <!-- Add more slides as needed -->
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Navigation -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
 
 </div>
 

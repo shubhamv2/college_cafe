@@ -12,5 +12,7 @@ urlpatterns = [
     path('increment_item/<int:item_id>/',views.increment_item, name='increment'),
     path('decrement_item/<int:item_id>/',views.decrement_item, name='decrement'),
     path('cart/place_order/ordersuccess/',views.order_success,name="ordersuccess"),
+    path('cart/place_order/payment/',views.payment, name='paymentpage'),
+    path('cart/place_order/payment/makepayment',views.makePayment, name='makepayment'),
 
 ]

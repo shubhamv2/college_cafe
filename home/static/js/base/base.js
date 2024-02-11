@@ -1,53 +1,53 @@
+// 
 // Function for fixing navbar at top
-function navbarfix() {
+function userProfileDetails() {
+  const user = document.querySelector('.user-png-icon');
+  const close = document.querySelector('.close-popup');
+  const userPopup = document.querySelector('.user-popup');
+  user.addEventListener('click', (e) => {
+    userPopup.style.display = "block";
+    document.body.style.overflow = 'hidden';
 
-    window.onscroll = function () { myFunction() };
-  
-    let navbar = document.querySelector(".navbar-wrapper");
-  
-    function myFunction() {
-      if (window.scrollY > 0) {
-        navbar.classList.add("fixed");
-      } else {
-        navbar.classList.remove("fixed");
-      }
+  })
+
+  close.addEventListener('click', (e) => {
+    userPopup.style.display = "none";
+    document.body.style.overflow = 'auto';
+  })
+
+  document.addEventListener('click', function (e) {
+    let isClickIcon = user.contains(e.target)
+    let isClickPopup = userPopup.contains(e.target);
+    if (!isClickIcon && !isClickPopup) {
+      userPopup.style.display = "none";
+      document.body.style.overflow = 'auto';
     }
-  
-  }
-  
-  
-  
-  
-  
-  
-  function userProfileDetails(){
-    // let isPopup = false;
-    const user = document.querySelector('.user-png-icon');
-    const close = document.querySelector('.close-popup');
-    const userPopup = document.querySelector('.user-popup');
-    user.addEventListener('click',(e)=>{
-      userPopup.style.display = "block"; 
-    })
-  
-    close.addEventListener('click',(e)=>{
-      userPopup.style.display = "none"; 
-    })
-  
-  }
-  
-  function editUserDetails(mypara){
-    const editIcons = document.querySelectorAll('.edit-icon')
-    const ItemToEdit = document.getElementById(mypara);
-    editIcons.forEach((element,index)=>{
-      element.addEventListener('click',(e)=>{
-        if(ItemToEdit.readOnly){
-          ItemToEdit.removeAttribute('readonly')
-          ItemToEdit.focus()
-        }
-      })
-    })
-  }
-  
-  userProfileDetails();
-  navbarfix();
-  
+  })
+
+}
+
+function hamburger() {
+  const hamburgerIcon = document.getElementById('hamburger-icon')
+  const navbarNavigator = document.querySelector('.navbar-navigator');
+  let is_clicked = false;
+  hamburgerIcon.addEventListener('click', (e) => {
+
+    if (!is_clicked) {
+      hamburgerIcon.children[0].classList.add('fa-xmark')
+      hamburgerIcon.children[0].classList.remove('fa-bars')
+      navbarNavigator.style.visibility = 'visible'
+      document.body.style.overflow = 'hidden'
+    }
+    else {
+      hamburgerIcon.children[0].classList.add('fa-bars')
+      hamburgerIcon.children[0].classList.remove('fa-xmark')
+      navbarNavigator.style.visibility = 'hidden'
+      document.body.style.overflow = 'auto'
+    }
+    is_clicked = !is_clicked;
+  })
+}
+
+hamburger();
+
+userProfileDetails();

@@ -7,6 +7,9 @@
 <form method="post" action="{% url 'placeorder' %}">
     {% csrf_token %}
     <div class="checkout-container">
+        <div class="message-cont">
+            <p class="message-text">{{message}}</p>
+        </div>
         <div class="checkout-box1">
             <h3 class="checkout-heading">Billing details</h3>
             <div class="name-container">
@@ -44,8 +47,9 @@
         <div class="checkout-box2">
             <h3 class="checkout-heading">Your Cart</h3>
             <div class="product-item-container">
-                <div class="cart-container">
-                    {% if cart_items|length <= 0 %} <p>Cart is Empty</p>
+                <div class="cart-container-box">
+                    {% if cart_items|length <= 0 %} 
+                        <p class='empty-cart'>Cart is Empty</p>
                         {% else %}
                         {% for cart_item in cart_items %}
                         <div class="cart-item">
@@ -67,9 +71,9 @@
 
                         {% endfor %}
                         <hr>
+                        <p class="total-amount"><strong class="total-amount-strong">Total Amount:</strong> <span class="total-amount-price">&#8377; {{total_amount}}</span></p>
                     {% endif %}
 
-                    <p class="total-amount"><strong class="total-amount-strong">Total Amount:</strong> <span class="total-amount-price">&#8377; {{total_amount}}</span></p>
                 </div>
 
 
@@ -83,8 +87,8 @@
                     </div>
                     <div class="online-option">
                         <div class="online-cont">
-                            <input type="radio" name="payment" id="" value="online">
-                            <label for="">PayPal</label>
+                            <input type="radio" name="payment" id="online-pay" value="online">
+                            <label for="online-pay">Online payment</label>
                         </div>
                         <img src="../img/paypal.png" alt="">
                     </div>

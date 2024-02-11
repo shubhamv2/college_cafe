@@ -37,10 +37,10 @@ body, html{
 
 .input-field{
     display: flex;
-    border: 1px solid black;
     justify-content: space-between;
     border-radius: 5px;
     overflow: hidden;
+    background-color: #F2F4F4  ;
 }
 
 .input-tags{
@@ -49,6 +49,7 @@ body, html{
     outline: none;
     font-size: 18px;
     padding: .5em;
+    background-color: #F2F4F4  ;
 
 }
 
@@ -84,4 +85,19 @@ body, html{
     border: none;
     border-radius: 5px;
     margin-top:.5em;
+}
+
+@media screen and (max-width: 600px){
+    .login-form{
+        position: static;
+        transform: none;
+        box-shadow: none;
+        border-radius: none;
+        width: 100%;
+    }
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

@@ -13,4 +13,6 @@ urlpatterns = [
     path('managecategories/deletecateogry/<int:id>/',views.deleteCategory, name='deletecategory'),
     path('managefoods/deletefood/<int:id>/',views.deleteFoodItem, name='deletefooditem'),
     path('manageusers/edituser/<int:id>/',views.editUser, name="edituser"),
+    path('orders/pending_orders/',views.pendingOrders, name='pendingorders'),
+    path('orders/delivered_orders/',views.deliveredOrders, name='deliveredorders')
 ]

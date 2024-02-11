@@ -29,7 +29,7 @@ class Report(models.Model):
 
 
 class Order(models.Model):
-    food_items = models.ManyToManyField(FoodItem)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places = 2)
     first_name = models.CharField(max_length=50, blank=False, null=False)
     last_name = models.CharField(max_length = 50, blank=False, null=False)
@@ -37,8 +37,20 @@ class Order(models.Model):
     state_name = models.CharField(max_length=50,blank=False, null=False)
     pin_code = models.CharField(max_length=10,blank=False, null=False)
     phone_number = models.CharField(max_length=10, blank=False, null=False)
+    is_paid = models.BooleanField(default=False)
     address = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
         return f"Order ${self.id}"
+    
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"OrderItem {self.id} - {self.food_item.name}"

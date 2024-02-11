@@ -20,7 +20,10 @@
             <a class="brand-name" href="{% url 'dashboard' %}">
                 CollegeCanteen Admin
             </a>
-            <a href="" class="admin-profile"><img src="{% static 'img/male_profile.png' %}" alt=""></a>
+            <div>
+                <a class="" href="{% url 'home' %}">Visit Site</a>
+                <a href="" class="admin-profile"><img src="{% static 'img/male_profile.png' %}" alt=""></a>
+            </div>
         </nav>
     </header>
     <div class="container">
@@ -67,14 +70,14 @@
             </div>
             <div class="left-main-container dropdown-menu">
                 <div class="left-container-items ">
-                    <span class="left-item-wrapper"><i class="fa-solid fa-file-invoice-dollar"></i>Invoice</span>
+                    <span class="left-item-wrapper"><i class="fa-solid fa-file-invoice-dollar"></i>Orders</span>
 
                     <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
 
                 </div>
                 <div class="dropdown-items-container">
-                    <a href="" class="dropdown-items">Add Invoice</a>
-                    <a href="" class="dropdown-items">Manage Invoices</a>
+                    <a href="{% url 'pendingorders' %}" class="dropdown-items">Pending Orders</a>
+                    <a href="{% url 'deliveredorders' %}" class="dropdown-items">Delivered Orders</a>
                 </div>
             </div>
 
@@ -83,11 +86,6 @@
                 <span class="left-item-wrapper"><i class="fa-solid fa-flag"></i>Reports</span>
 
             </a>
-            <div class="left-container-items">
-                <span class="left-item-wrapper"><i class="fa-solid fa-gear"></i>Settings</span>
-                <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
-
-            </div>
         </div>
         <div class="right-container">
             {% block start %}

@@ -13,6 +13,7 @@
     {% block extra_css %} {% endblock %}
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
+
 </head>
 
 <body>
@@ -21,7 +22,7 @@
             <a class="logo" href="/">
                 <img class="logo-img" src="{% static 'imgs/base/logo/CollegeCafe.png' %}" alt="">
             </a>
-           
+
             <ul class="navbar-navigator">
                 <li><a class="" href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'menu' category_name='all' %}">Our Menus</a></li>
@@ -31,7 +32,10 @@
             </ul>
 
             {% if not request.user.is_authenticated %}
-            <a href="{% url 'login' %}" class="login-button">Login</a>
+            <div class="login-type-btn">
+                <a href="{% url 'login' %}" class="login-button">Login</a>
+                <a href="" class="login-button">Admin Login</a>
+            </div>
             {% else %}
             <div class="cart-and-profile">
                 <a href="{% url 'cart' %}" class="cart-container">
@@ -61,43 +65,21 @@
                                 {% else %}
                                 <img class="user-profile-image" src="{% static 'imgs/base/usericon/userimg.png' %}" alt="">
                                 {% endif %}
-
+                                
+                                <h3 class="user-name">{{user.name}}</h3>
                             </div>
                             <div class="user-detail-cont">
-                                <form class="user-detail-form">
-                                    <div class="user-detail-fields">
-                                        <label for="uname">Name</label>
-                                        <div class="innercont">
-                                            <input  id="uname" class="user-input-field" type="text" value="{{user.name}}" readonly>
-                                            <div onclick="editUserDetails('uname')" class="edit-icon">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="user-detail-fields">
-                                        <label for="uemail">Email</label>
-                                        <div class="innercont">
-
-                                            <input id="uemail" class="user-input-field" type="text" value="{{user.email}}" readonly>
-                                            <div onclick="editUserDetails('uemail')" class="edit-icon">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="user-detail-fields">
-                                        <label for="uphone">Phone</label>
-                                        <div class="innercont">
-
-                                            <input id="uphone" class="user-input-field" type="text" value="{{user.phone}}" readonly>
-                                            <div class="edit-icon" onclick="editUserDetails('uphone')">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                <div class="user-utility">
+                                    <a href="">Change details</a>
+                                    <a href="">Check orders</a>
+                                    <a href="">Change password</a>
+                                    {% if user.is_superuser %}
+                                    <a href="{% url 'dashboard' %}">Goto Dashboard</a>
+                                    {% endif %}
+                                    <a href="{% url 'logout' %}">Logout</a>
+                                </div>
                             </div>
                         </div>
-                        <a href="{% url 'logout' %}" class="login-button">Logout</a>
                     </div>
                 </div>
 
@@ -127,22 +109,30 @@
                         <li><a href="{% url 'contact' %}">Contact Us</a></li>
                         <li><a href="{% url 'about' %}">About Us</a></li>
                     </ul>
+                    <div class="social-links">
+                        <a href="" class="facebook">
+                            <i class="fa-brands fa-facebook"></i>
+
+                        </a>
+                        <a href="" class="twitter">
+                            <i class="fa-brands fa-twitter"></i>
+
+                        </a>
+                        <a href="" class="instagram">
+                            <i class="fa-brands fa-instagram"></i>
+
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="copy-social-link">
-                <div class="copy-right">
-                    <p>Copyright &copy; ClgCanteen All rights are reserved</p>
-                </div>
-                <div class="social-links">
-                    <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-twitter"></i>
-                    <i class="fa-brands fa-instagram"></i>
-                </div>
+            <div class="copy-right">
+                <p>Copyright &copy; ClgCanteen All rights are reserved</p>
             </div>
         </div>
     </footer>
     <script src="{% static 'js/base/base.js'%}"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     </script>
     {% block extra_js %}
     {% endblock %}

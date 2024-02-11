@@ -21,11 +21,11 @@ h4, strong{
 
 
 .left-box{
-    flex:.4;
+    flex:.3;
 }
 .left-box img{
     border-radius: 20px;
-    width: 100%;
+    width: 350px;
     height: 250px;
     object-fit: cover;
 }
@@ -48,4 +48,12 @@ h4, strong{
 
 .other-wrapper{
     margin-top: 1.5em;
+}
+
+
+@media screen and (max-width:600px){
+    .about-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -50,13 +50,13 @@
     </div>
     <div class="menu-box-2">
         <div class="search-bar-container">
+            <div class="filter-icon">
+                <i class="fa-solid fa-list"></i>
+            </div>
             <form class="search-bar">
                 <input type="text" placeholder="Search here..." name="search-text">
                 <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
-            <div class="search-reasult">
-                <h4>Search Result :{{total_items}} items found</h4>
-            </div>
         </div>
 
 
@@ -89,6 +89,28 @@
 </div>
 
 {% block extra_js %}
+<script>
+    const menuBox = document.querySelector('.menu-box-1');
+    const filterBtn = document.querySelector('.filter-icon');
+    let is_acitve = false;
+    filterBtn.addEventListener('click',(e)=>{
+        toggleCategory(is_acitve)
+        is_acitve = !is_acitve;
+    })
+    
+    
+    function toggleCategory(param){
+        if(!param){
+            menuBox.style.display='block'
+            document.body.style.overflow = 'hidden'
+            
+        }
+        else{
+            menuBox.style.display='none'
+            document.body.style.overflow = 'auto'
+        }
+    }
+</script>
 <script src="{% static 'js/menu.js' %}"></script>
 {% endblock %}
 

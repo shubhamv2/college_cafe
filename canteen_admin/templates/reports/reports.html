@@ -1,0 +1,15 @@
+{% extends 'adminbase/adminbase.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reports/reports.css' %}">
+{% endblock %}
+{% block start %}
+<h2>Reports</h2>
+<div class="reports-container">
+    {% for report in reports %}
+    <div class="report-item">
+        {{report.message}}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

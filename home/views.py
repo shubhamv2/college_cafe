@@ -5,6 +5,8 @@ from canteen_admin.models import *
 from django.db.models import Q
 from django.http import Http404
 from django.contrib import messages
+import time
+from django.http import JsonResponse
 
 
 
@@ -101,12 +103,23 @@ def cartPage(request):
 
 @login_required(login_url='login')
 def add_to_cart(request, item_id):
+
     item = get_object_or_404(FoodItem, pk=item_id)
-    cart, created = Cart.objects.get_or_create(user = request.user)
-    cart_item, created = CartItem.objects.get_or_create(cart = cart, food_item = item)
-    cart_item.quantity +=1
-    cart_item.save()
+    
+    # Ensure the user is authenticated
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, food_item=item)
+        cart_item.quantity += 1
+        cart_item.save()
+    
     return redirect('menu', category_name="all")
+
+
+
+
+
+    
 
 
 
@@ -124,7 +137,7 @@ def remove_from_cart(request, item_id):
     except Cart.DoesNotExist:
         raise Http404('Cart not found')
     
-
+@login_required
 def increment_item(request, item_id):
     try:
         cart = Cart.objects.get(user = request.user)
@@ -138,7 +151,7 @@ def increment_item(request, item_id):
         return redirect('cart')
     except Cart.DoesNotExist:
         raise Http404('Cart not found')
-    
+@login_required
 def decrement_item(request, item_id):
     try:
         cart = Cart.objects.get(user = request.user)
@@ -170,6 +183,7 @@ def place_order(request):
                 total_amount += (cart_item.quantity * cart_item.food_item.food_price)
 
             if request.method == 'POST':
+                user = request.user
                 food_items = FoodItem.objects.filter(pk__in = item_ids)
                 total_price = total_amount
                 first_name = request.POST.get('first-name')
@@ -179,10 +193,27 @@ def place_order(request):
                 state = request.POST.get('state')
                 pin = request.POST.get('pin')
                 phone = request.POST.get('phone')
+                payment_option = request.POST.get('payment')
                 if not all([first_name, last_name, address, city, state, pin, phone]):
                     messages.error(request, 'All fields are required')
                     return redirect('cart')
-                order = Order.objects.create(
+                
+               
+
+                
+                if payment_option == 'online':
+                    request.session['total_price'] = str(total_price)
+                    request.session['first_name'] = first_name
+                    request.session['last_name'] = last_name
+                    request.session['city_name'] = city
+                    request.session['state_name'] = state
+                    request.session['pin_code'] = pin
+                    request.session['phone_number'] = phone
+                    request.session['address'] = address
+                    return redirect('paymentpage')
+                
+                elif payment_option == 'cash':
+                    order = Order.objects.create(
                     total_price = total_price,
                     first_name = first_name,
                     last_name = last_name,
@@ -191,15 +222,54 @@ def place_order(request):
                     pin_code = pin,
                     phone_number = phone,
                     address = address
-                )
-                order.food_items.add(*food_items)
-                order.save()
+                    )
 
-                Cart.objects.filter(user = request.user).delete()
-        
-
+                    order.food_items.add(*food_items)
+                    order.save()
+                    Cart.objects.filter(user = request.user).delete()
+                    return redirect('ordersuccess')
     return redirect('cart')
 
 
 def order_success(request):
-    return render(request, 'ordersuccess/ordersuccess.html')
+    return render(request, 'success/success.html')
+
+
+
+def payment(request):
+    total_price = request.session.get('total_price')
+    total_price = float(total_price)  
+    context = {'total_amount': total_price}
+    return render(request, 'payment/payment.html', context)
+
+
+
+def makePayment(request):
+    user_cart = Cart.objects.get(user=request.user)
+    cart_items = user_cart.cartitem_set.all()
+    item_ids = [cart_item.food_item.id for cart_item in cart_items]
+    food_items = FoodItem.objects.filter(pk__in = item_ids)
+    total_price = request.session.get('total_price')
+    first_name = request.session.get('first_name')
+    last_name = request.session.get('last_name')
+    city_name = request.session.get('city_name')
+    state_name = request.session.get('state_name')
+    pin_code = request.session.get('pin_code')
+    phone_number = request.session.get('phone_number')
+    address = request.session.get('address')
+    total_price = float(total_price)
+    order = Order.objects.create(
+    total_price = total_price,
+    first_name = first_name,
+    last_name = last_name,
+    city_name = city_name,
+    state_name = state_name,
+    pin_code = pin_code,
+    phone_number = phone_number,
+    is_paid = True,
+    address = address
+    )
+    order.food_items.add(*food_items)
+    order.save()
+    Cart.objects.filter(user = request.user).delete()
+    return redirect('ordersuccess')

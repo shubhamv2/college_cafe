@@ -1,13 +1,15 @@
 .manageUser{
     margin-top: 1em;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.128);
     padding: .5em 1.5em;
+    gap: 1em;
 }
 .manageUser-items{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: .5em 0;
+    padding: 1em;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.128);
 }
 strong{
     margin-right: .3em;

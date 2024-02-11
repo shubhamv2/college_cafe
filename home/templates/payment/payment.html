@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/payment/payment.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="payment-card">
+            <p class="payment-text">Requested by</p>
+            <div class="payment-details">
+                <img class="payment-user-icon" src="{% static 'imgs/base/usericon/userimg.png' %}" alt="">
+                <p class="canteen-name">College Cafe</p>
+                <p class="canteen-account">99xxxxxxxxx223</p>
+                <h2 class="total-amount">&#8377;{{total_amount}}</h2>
+            </div>
+            <div class="payment-card-btns">
+
+                <form action="{% url 'makepayment' %}" method="post" class="payment-card-btns">
+                    {% csrf_token %}
+                    <input type="submit" value="Pay" name="pay">
+                    <!-- <input type="submit" value="Cancel" name="cancel">      -->
+                </form>
+                <form action="{% url 'cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Cancel" name="cancel">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
