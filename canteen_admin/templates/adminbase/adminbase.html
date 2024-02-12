@@ -21,7 +21,7 @@
                 CollegeCanteen Admin
             </a>
             <div>
-                <a class="" href="{% url 'home' %}">Visit Site</a>
+                <a class="visit-site-btn" href="{% url 'home' %}">Visit Site</a>
                 <a href="" class="admin-profile"><img src="{% static 'img/male_profile.png' %}" alt=""></a>
             </div>
         </nav>
@@ -68,18 +68,9 @@
                     <a href="{% url 'managefoods' %}" class="dropdown-items">Manage Foods</a>
                 </div>
             </div>
-            <div class="left-main-container dropdown-menu">
-                <div class="left-container-items ">
-                    <span class="left-item-wrapper"><i class="fa-solid fa-file-invoice-dollar"></i>Orders</span>
-
-                    <span class="more-arrow"><i class="fa-solid fa-angle-down"></i></span>
-
-                </div>
-                <div class="dropdown-items-container">
-                    <a href="{% url 'pendingorders' %}" class="dropdown-items">Pending Orders</a>
-                    <a href="{% url 'deliveredorders' %}" class="dropdown-items">Delivered Orders</a>
-                </div>
-            </div>
+           <a href="{% url 'orders' %}" class="left-container-items">
+            <span class="left-item-wrapper"><i class="fa-solid fa-file-invoice-dollar"></i>Orders</span>
+           </a>
 
             <a href="{% url 'reports' %}" class="left-container-items">
 

@@ -2,14 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from datetime import date
 from accounts.models import User
 from .models import Category, FoodItem
-from home.models import Report, Order
+from home.models import Report, Order, OrderItem
 from .decorators import admin_required
 # Create your views here.
 @admin_required
 def dashboard(request):
     totalUsers = User.objects.exclude(is_superuser=True).count()
     currentDate = date.today()
-    context = {'totalUsers':totalUsers, 'currentDate':currentDate}
+    orders = Order.objects.count()
+    all_orders = Order.objects.all()
+    total_amount = 0
+    for order in all_orders:
+        order_items = OrderItem.objects.filter(order = order)
+        total_amount += sum(item.price * item.quantity for item in order_items)
+    context = {'totalUsers':totalUsers, 'currentDate':currentDate, 'totalorders':orders,'totalamount':total_amount}
     return render(request, 'dashboard/dashboard.html', context)
 
 def addUser(request):
@@ -62,7 +68,7 @@ def addFood(reqeust):
         food_name = reqeust.POST.get('foodname')
         food_price = reqeust.POST.get('foodprice')
         food_category = reqeust.POST.get('foodcategory')
-        food_subcategory = reqeust.POST.get('subcategory')
+        food_subcategory = reqeust.POST.get('foodsubcategory')
         food_desc = reqeust.POST.get('fooddesc')
         food_img = reqeust.FILES.get('foodimage')
         food_category_instance = Category.objects.get(food_category = food_category)
@@ -70,6 +76,7 @@ def addFood(reqeust):
             food_name = food_name,
             food_price = food_price,
             food_category = food_category_instance,
+            food_subcategory = food_subcategory,
             food_desc = food_desc,
             food_image = food_img,
         )
@@ -119,11 +126,9 @@ def editUser(reqeust, id):
 
 
 
-def pendingOrders(request):
+def orders(request):
     all_orders = Order.objects.all()
-    return render(request, 'pendingorders/pendingorders.html',context)
+    context = {'orders':all_orders}
+    return render(request, 'orders/orders.html', context)
 
-
-def deliveredOrders(request):
-    return render(request, 'deliveredorders/deliveredorders.html')
 

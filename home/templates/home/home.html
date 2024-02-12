@@ -107,28 +107,44 @@
 
     <div class="swiper-container swiper swiper3">
         <div class="swiper-wrapper card-wrapper">
-            
+            {% for review in reviews %}
             <div class="fb-card swiper-slide">
                 <div class="feedback-user">
+
                     <div class="fb-user-profile">
-                        <img src="../img/PngItem_5087266.png" alt="" class="fb-profile-img">
+                        {% if user.profile_img %}
+                        <img src="{{user.profile_img.url}}" class="fb-profile-img" alt="">
+                        {% else %}
+                        <img src="{% static 'imgs/base/usericon/userimg.png' %}" alt="" class="fb-profile-img">
+                        {% endif %}
                     </div>
                     <div class="user-fb-date">
-                        <h3 class="user-name">Alex Rodriguez</h3>
-                        <span class="post-date">8 jan 2023</span>
+                        <h3 class="user-name">{{review.user.name}}</h3>
+                        <span class="post-date">{{review.created_at}}</span>
                     </div>
                 </div>
                 <div class="feedback-content">
-                    <p>"Impressed with the canteen's fresh options. The salad was crisp, and the sandwiches were
-                        a flavorful treat. Great for a healthy and quick lunch!"</p>
+                    <p>{{review.review}}</p>
 
                 </div>
 
 
             </div>
+            {% endfor %}
 
         </div>
 
+    </div>
+
+
+
+    <div class="user-reviews">
+        <h1 class="first-sec-title">Share Your Experience</h1>
+        <form action="{% url 'review' %}" method="post" class="user-review-form">
+            {% csrf_token %}
+            <textarea name="review" id="review-field" placeholder="Share your experience"></textarea>
+            <button type="submit" class="send-btn"><i class="fa-regular fa-paper-plane"></i></button>
+        </form>
     </div>
 </div>
 {% block extra_js %}

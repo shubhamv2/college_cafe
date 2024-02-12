@@ -71,7 +71,7 @@
                             <div class="user-detail-cont">
                                 <div class="user-utility">
                                     <a href="">Change details</a>
-                                    <a href="">Check orders</a>
+                                    <a href="{% url 'userorders' %}">Check orders</a>
                                     <a href="">Change password</a>
                                     {% if user.is_superuser %}
                                     <a href="{% url 'dashboard' %}">Goto Dashboard</a>

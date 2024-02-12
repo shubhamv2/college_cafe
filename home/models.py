@@ -18,6 +18,10 @@ class CartItem(models.Model):
     def __str__(self):
         return self.cart.user.email +" " +str(self.quantity)
 
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    review = models.TextField(blank = False, null = False)
+    created_at = models.DateTimeField(auto_now_add = True)
 
 class Report(models.Model):
     user_name = models.CharField(max_length = 50, blank=False, null=False)
@@ -53,4 +57,4 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"OrderItem {self.id} - {self.food_item.name}"
+        return f"OrderItem {self.id} - {self.food_item.food_name}"

@@ -1,0 +1,31 @@
+{% extends "adminbase/adminbase.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/orders/orders.css' %}">
+{% endblock %}
+{% block start %}
+    <h2>Orders</h2>
+    <div class="pendig-orders-container">
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-details">
+                <p>Order id:{{order.id}}</p>
+                <p>Customer Name:{{order.first_name}} {{order.last_name}}</p>
+                <p>Total Amount: {{order.total_price}}</p>
+                <p>Ordered Date: {{order.created_at}}</p>
+                order paid: {{order.is_paid}}
+            </div>
+            <div class="order-item-container">
+                {% for order_item in order.orderitem_set.all %}
+                <div class="order-item">
+                    <img src="/media/{{order_item.food_item.food_image}}" alt="" class="order-item-img">
+                    <div class="order-item-details">
+                        <p>{{order_item.food_item.food_name}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

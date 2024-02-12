@@ -99,7 +99,13 @@ body{
 
 }
 
-
+.visit-site-btn{
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: .5em 1em;
+    border-radius: 5px;
+}
 .right-container{
     flex: 4;
     padding: 1.5em 2em 2em 3em;

@@ -5,15 +5,15 @@ from canteen_admin.models import *
 from django.db.models import Q
 from django.http import Http404
 from django.contrib import messages
-import time
-from django.http import JsonResponse
+
 
 
 
 # Home page view
 def home(request):
     food_items = FoodItem.objects.all()
-    context = {'items':food_items}
+    reviews = Review.objects.all()
+    context = {'items':food_items, 'reviews':reviews}
     return render(request, 'home/home.html',context)
 
 
@@ -78,6 +78,20 @@ def contact(request):
         
     return render(request, 'contact/contact.html')
 
+
+def review_page(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            review = request.POST.get('review')
+            user = request.user
+            Review.objects.create(
+                user = user,
+                review = review,
+            )
+            
+    return redirect('home')
+
+
 login_required(login_url='login')
 def cartPage(request):
     if request.user.is_authenticated:
@@ -100,6 +114,9 @@ def cartPage(request):
     return render(request, 'cart/cart.html', context)
 
 
+
+def userOrders(request):
+    return render(request, 'userorders/userorders.html')
 
 @login_required(login_url='login')
 def add_to_cart(request, item_id):
@@ -179,12 +196,12 @@ def place_order(request):
 
             item_ids = [cart_item.food_item.id for cart_item in cart_items]
 
+
             for cart_item in cart_items:
                 total_amount += (cart_item.quantity * cart_item.food_item.food_price)
 
             if request.method == 'POST':
                 user = request.user
-                food_items = FoodItem.objects.filter(pk__in = item_ids)
                 total_price = total_amount
                 first_name = request.POST.get('first-name')
                 last_name = request.POST.get('last-name')
@@ -213,7 +230,9 @@ def place_order(request):
                     return redirect('paymentpage')
                 
                 elif payment_option == 'cash':
+
                     order = Order.objects.create(
+                    user = user,
                     total_price = total_price,
                     first_name = first_name,
                     last_name = last_name,
@@ -223,9 +242,15 @@ def place_order(request):
                     phone_number = phone,
                     address = address
                     )
-
-                    order.food_items.add(*food_items)
                     order.save()
+
+                    for cart_item in cart_items:
+                        quantity = cart_item.quantity
+                        item_id = cart_item.food_item.id
+                        item = FoodItem.objects.get(pk = item_id)
+                        price = item.food_price
+                        OrderItem.objects.create(order = order, food_item = item, quantity = quantity, price  = price)
+
                     Cart.objects.filter(user = request.user).delete()
                     return redirect('ordersuccess')
     return redirect('cart')
