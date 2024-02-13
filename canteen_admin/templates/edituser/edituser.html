@@ -21,11 +21,11 @@
         </div>
         <div class="customer-detail-wrapper">
             <label for="c-password">Password</label>
-            <input class="customer-info" type="password" id="c-password" name="customer-phone" placeholder="Password">
+            <input class="customer-info" type="password" id="c-password" name="customer-phone" placeholder="Password" value="{{userdetails.password}}">
         </div>
         <div class="customer-detail-wrapper">
             <label for="c-profile">Upload Profile</label>
-            <input class="customer-info profile-input" type="file" name="customer-profile" id="c-profile">
+            <input class="customer-info profile-input" type="file" name="customer-profile" id="c-profile" value="{{userdetails.profile_img}}" >
         </div>
         <button type="submit" class="add-button">Submit</button>
     </form>

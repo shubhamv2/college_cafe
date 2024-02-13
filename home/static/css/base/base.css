@@ -13,6 +13,9 @@
 .navbar-wrapper{
     width: 100%;
 }
+body{
+    background-color: #F8F9F9;
+}
 
 .navbar{
     display: flex;
@@ -186,7 +189,9 @@
 }
 
 
-
+.active{
+    color: rgb(0, 185, 0);
+}
 
 
 

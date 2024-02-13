@@ -100,11 +100,11 @@
 
 
 <div class="feedback-section">
+    {% if reviews|length > 0 %}
     <div class="feedback-title">
         <h3 class="second-sec-title">Testimonials</h3>
         <h1 class="first-sec-title">What Our Client Say</h1>
     </div>
-
     <div class="swiper-container swiper swiper3">
         <div class="swiper-wrapper card-wrapper">
             {% for review in reviews %}
@@ -135,6 +135,7 @@
         </div>
 
     </div>
+    {% endif %}
 
 
 

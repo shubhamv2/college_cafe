@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import *
 from canteen_admin.models import *
@@ -13,6 +13,7 @@ from django.contrib import messages
 def home(request):
     food_items = FoodItem.objects.all()
     reviews = Review.objects.all()
+  
     context = {'items':food_items, 'reviews':reviews}
     return render(request, 'home/home.html',context)
 
@@ -79,6 +80,9 @@ def contact(request):
     return render(request, 'contact/contact.html')
 
 
+
+# Home page review
+@login_required(login_url='login')
 def review_page(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -92,7 +96,8 @@ def review_page(request):
     return redirect('home')
 
 
-login_required(login_url='login')
+# Cart Page View
+@login_required(login_url='login')
 def cartPage(request):
     if request.user.is_authenticated:
         try:
@@ -114,10 +119,44 @@ def cartPage(request):
     return render(request, 'cart/cart.html', context)
 
 
-
+# Users Orders
+@login_required(login_url='login')
 def userOrders(request):
-    return render(request, 'userorders/userorders.html')
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(user = request.user).order_by('-created_at')
+        total_amount = 0
+        for order in orders:
+            items = OrderItem.objects.filter(order = order)
+            for item in items:
+                total_amount +=( (item.quantity) * (item.food_item.food_price))
+        context ={'orders': orders, 'total_amount':total_amount}
 
+    return render(request, 'userorders/userorders.html',context)
+
+
+
+# Logic for canceling order
+@login_required(login_url='login')
+def cancelOrder(request, order_id, item_id):
+    if request.user.is_authenticated:
+        order_item = get_object_or_404(OrderItem, id=item_id, order__id = order_id)
+        if order_item.order.user != request.user:
+            return HttpResponse('Access denied')
+        order = Order.objects.get(user = request.user, pk = order_id)
+        order_item = OrderItem.objects.get(order=order, pk=item_id)
+        order_cancel_price = order_item.price * order_item.quantity
+        order.total_price -= order_cancel_price
+        order.save()
+        order_item.delete()
+
+        return redirect('userorders')
+    else:
+        return HttpResponse('Bad Request !')
+
+
+
+
+# Logic for adding item into cart
 @login_required(login_url='login')
 def add_to_cart(request, item_id):
 
@@ -128,7 +167,7 @@ def add_to_cart(request, item_id):
         cart, created = Cart.objects.get_or_create(user=request.user)
         cart_item, created = CartItem.objects.get_or_create(cart=cart, food_item=item)
         cart_item.quantity += 1
-        cart_item.save()
+        # cart_item.save()
     
     return redirect('menu', category_name="all")
 
@@ -139,7 +178,7 @@ def add_to_cart(request, item_id):
     
 
 
-
+# Logic for removing item from cart
 @login_required(login_url='login')
 def remove_from_cart(request, item_id):
     try:
@@ -153,8 +192,9 @@ def remove_from_cart(request, item_id):
         return redirect('cart')
     except Cart.DoesNotExist:
         raise Http404('Cart not found')
-    
-@login_required
+
+# Logic for incrementing item into cart
+@login_required(login_url='home')
 def increment_item(request, item_id):
     try:
         cart = Cart.objects.get(user = request.user)
@@ -168,7 +208,10 @@ def increment_item(request, item_id):
         return redirect('cart')
     except Cart.DoesNotExist:
         raise Http404('Cart not found')
-@login_required
+    
+
+#logic for decrementing item from cart
+@login_required(login_url='home')
 def decrement_item(request, item_id):
     try:
         cart = Cart.objects.get(user = request.user)
@@ -186,16 +229,13 @@ def decrement_item(request, item_id):
         raise Http404('Cart not found')
     
 
-
+# Logic for placing order
 @login_required(login_url='login')
 def place_order(request):
     if request.user.is_authenticated:
             total_amount = 0
             user_cart = Cart.objects.get(user=request.user)
             cart_items = user_cart.cartitem_set.all()
-
-            item_ids = [cart_item.food_item.id for cart_item in cart_items]
-
 
             for cart_item in cart_items:
                 total_amount += (cart_item.quantity * cart_item.food_item.food_price)
@@ -255,25 +295,12 @@ def place_order(request):
                     return redirect('ordersuccess')
     return redirect('cart')
 
-
-def order_success(request):
-    return render(request, 'success/success.html')
-
-
-
-def payment(request):
-    total_price = request.session.get('total_price')
-    total_price = float(total_price)  
-    context = {'total_amount': total_price}
-    return render(request, 'payment/payment.html', context)
-
-
-
+# Login for payment Fake payment
+@login_required(login_url='login')
 def makePayment(request):
+    user = request.user
     user_cart = Cart.objects.get(user=request.user)
     cart_items = user_cart.cartitem_set.all()
-    item_ids = [cart_item.food_item.id for cart_item in cart_items]
-    food_items = FoodItem.objects.filter(pk__in = item_ids)
     total_price = request.session.get('total_price')
     first_name = request.session.get('first_name')
     last_name = request.session.get('last_name')
@@ -283,18 +310,43 @@ def makePayment(request):
     phone_number = request.session.get('phone_number')
     address = request.session.get('address')
     total_price = float(total_price)
+
     order = Order.objects.create(
-    total_price = total_price,
-    first_name = first_name,
-    last_name = last_name,
-    city_name = city_name,
-    state_name = state_name,
-    pin_code = pin_code,
-    phone_number = phone_number,
-    is_paid = True,
-    address = address
+        user = user,
+        total_price = total_price,
+        first_name = first_name,
+        last_name = last_name,
+        city_name = city_name,
+        state_name = state_name,
+        pin_code = pin_code,
+        phone_number = phone_number,
+        is_paid = True,
+        address = address,
     )
-    order.food_items.add(*food_items)
     order.save()
+
+    for cart_item in cart_items:
+        quantity = cart_item.quantity
+        item_id = cart_item.food_item.id
+        item = FoodItem.objects.get(pk = item_id)
+        price = item.food_price
+        OrderItem.objects.create(order = order, food_item = item, quantity = quantity, price  = price)
     Cart.objects.filter(user = request.user).delete()
     return redirect('ordersuccess')
+
+
+
+# Login to show success page after order succesfully placed 
+@login_required(login_url='login')
+def order_success(request):
+    return render(request, 'success/success.html')
+
+# Login for showing payament card during placing order
+@login_required(login_url='login')
+def payment(request):
+    total_price = request.session.get('total_price')
+    total_price = float(total_price)  
+    context = {'total_amount': total_price}
+    return render(request, 'payment/payment.html', context)
+
+

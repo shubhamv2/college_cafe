@@ -1,14 +1,25 @@
 {% extends 'adminbase/adminbase.html' %}
 {% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'reports/reports.css' %}">
+<link rel="stylesheet" href="{% static '/css/reports/reports.css' %}">
 {% endblock %}
 {% block start %}
-<h2>Reports</h2>
+<h2 class="report-heading">Reports</h2> 
 <div class="reports-container">
     {% for report in reports %}
     <div class="report-item">
-        {{report.message}}
+        <div class="user-report-container">
+            <img src="{% static 'imgs/pngegg.png' %}" alt="">
+            <div class="user-info">
+
+                <h3 class="user-name">{{report.user_name}}</h3>
+                <p class="report"><strong>Message:</strong> {{report.message}}</p>
+            </div>
+        </div>
+        <form action="{% url 'deletereport' report.id %}" method="post">
+            {% csrf_token %}
+            <input class="report-resolve-btn" type="submit" value="Resolve">
+        </form>
     </div>
     {% endfor %}
 </div>

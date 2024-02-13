@@ -1,5 +1,16 @@
 .order-card{
     margin: 1em 0;
+    border: 1px solid rgb(0, 185, 0);
+    border-radius: 5px;
+    padding: .5em;
+}
+.order-details{
+    display: flex;
+    flex-direction: column;
+    gap: .3em;
+}
+.order-item-heading{
+    margin: .5em 0;
 }
 .order-item-container{
     display: flex;

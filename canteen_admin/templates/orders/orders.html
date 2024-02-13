@@ -9,18 +9,22 @@
         {% for order in orders %}
         <div class="order-card">
             <div class="order-details">
-                <p>Order id:{{order.id}}</p>
-                <p>Customer Name:{{order.first_name}} {{order.last_name}}</p>
-                <p>Total Amount: {{order.total_price}}</p>
-                <p>Ordered Date: {{order.created_at}}</p>
-                order paid: {{order.is_paid}}
+                <p><strong>Order id:</strong> {{order.id}}</p>
+                <p><strong>Customer Name:</strong> {{order.first_name}} {{order.last_name}}</p>
+                <p><strong>Total Amount:</strong> &#8377;{{order.total_price}}</p>
+                <p><strong>Ordered Date:</strong> {{order.created_at}}</p>
             </div>
+            <h4 class="order-item-heading">All Items</h4>
             <div class="order-item-container">
                 {% for order_item in order.orderitem_set.all %}
                 <div class="order-item">
                     <img src="/media/{{order_item.food_item.food_image}}" alt="" class="order-item-img">
                     <div class="order-item-details">
                         <p>{{order_item.food_item.food_name}}</p>
+                        <div>
+                            <p>Qty: {{order_item.quantity}}</p>
+                            <p>Price: &#8377; {{order_item.food_item.food_price}}</p>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}

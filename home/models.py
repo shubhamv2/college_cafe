@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
 from canteen_admin.models import FoodItem
 # Create your models here.
 
@@ -14,7 +16,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1)
     def __str__(self):
         return self.cart.user.email +" " +str(self.quantity)
 
@@ -58,3 +60,13 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"OrderItem {self.id} - {self.food_item.food_name}"
+    
+@receiver(post_delete, sender=OrderItem)
+def delete_order_if_empty(sender, instance, **kwargs):
+    """
+    Signal receiver function to delete the order if no order items are left after deletion.
+    """
+    order = instance.order
+    # Check if the order has any remaining order items
+    if not OrderItem.objects.filter(order=order).exists():
+        order.delete()

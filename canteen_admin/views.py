@@ -5,6 +5,8 @@ from .models import Category, FoodItem
 from home.models import Report, Order, OrderItem
 from .decorators import admin_required
 # Create your views here.
+
+
 @admin_required
 def dashboard(request):
     totalUsers = User.objects.exclude(is_superuser=True).count()
@@ -17,7 +19,7 @@ def dashboard(request):
         total_amount += sum(item.price * item.quantity for item in order_items)
     context = {'totalUsers':totalUsers, 'currentDate':currentDate, 'totalorders':orders,'totalamount':total_amount}
     return render(request, 'dashboard/dashboard.html', context)
-
+@admin_required
 def addUser(request):
     if request.method == 'POST':
         customer_name = request.POST.get('customer-name')
@@ -40,13 +42,13 @@ def addUser(request):
     return render(request, 'adduser/adduser.html')
 
 
-
+@admin_required
 def manageUsers(request):
     customers = User.objects.all();
     context = {"customers":customers}
     return render(request, 'manageusers/manageusers.html', context)
 
-
+@admin_required
 def addCategory(request):
     if request.method == 'POST':
         category = request.POST.get('category')
@@ -56,13 +58,13 @@ def addCategory(request):
     return render(request, 'addcategory/addcategory.html')
 
 
-
+@admin_required
 def manageCategories(request):
     allCategories = Category.objects.all();
     context = {'categories': allCategories}
     return render(request, 'managecategories/managecategories.html', context)
 
-
+@admin_required
 def addFood(reqeust):
     if reqeust.method == 'POST':
         food_name = reqeust.POST.get('foodname')
@@ -83,51 +85,75 @@ def addFood(reqeust):
     allCategories = Category.objects.all();
     context = {"categories":allCategories}    
     return render(reqeust,'addfood/addfood.html',context)
-
+@admin_required
 def manageFoods(request):
     allItems = FoodItem.objects.all();
     context = {"foodItems": allItems}
     return render(request, 'managefoods/managefoods.html',context)
 
 
-
+@admin_required
 def reports(request):
     allReports = Report.objects.all();
     context = {'reports':allReports}
     return render(request, 'reports/reports.html',context)
 
+@admin_required
+def deleteReport(request, id):
+    try:
+        report = Report.objects.get(pk= id);
+        report.delete()
+    except Exception as e:
+        return redirect('reports')
+    return redirect('reports')
 
 
+@admin_required
 def deleteUser(reqeust, id):
     user_to_delete = User.objects.get(id=id)
     user_to_delete.delete()
     return redirect('manageusers')
 
 
-
+@admin_required
 def deleteCategory(reqeust, id):
     category_to_delete = Category.objects.get(id=id)
     category_to_delete.delete()
     return redirect('managecategories')
 
-
+@admin_required
 def deleteFoodItem(reqeust, id):
     item_to_delete = FoodItem.objects.get(id = id)
     item_to_delete.delete()
     return redirect('managefoods')
 
-
-def editUser(reqeust, id):
+@admin_required
+def editUser(request, id):
     userInstance = get_object_or_404(User, pk = id)
-    if reqeust.method == 'POST':
-        pass
+    if request.method == 'POST':
+        customer_name = request.POST.get('customer-name')
+        customer_phone = request.POST.get('customer-phone')
+        customer_email = request.POST.get('customer-email')
+        customer_password = request.POST.get('customer-email')
+        customer_profile = request.POST.get('customer-profile')
+        if User.objects.filter(email = customer_email).exists():
+            return redirect('manageusers')
+        
+        user = User.objects.filter(email = customer_email)
+        user.name = customer_name
+        user.email = customer_email
+        user.phone = customer_phone
+        user.profile_img = customer_profile
+        user.set_password(customer_password)
+        user.save()
+        return redirect('manageusers')
     context = {'userdetails':userInstance}
-    return render(reqeust, 'edituser/edituser.html',context)
+    return render(request, 'edituser/edituser.html',context)
 
 
-
+@admin_required
 def orders(request):
-    all_orders = Order.objects.all()
+    all_orders = Order.objects.all().order_by('-created_at')
     context = {'orders':all_orders}
     return render(request, 'orders/orders.html', context)
 

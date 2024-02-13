@@ -22,4 +22,11 @@ strong{
 .manage-btn{
     font-size: 1.5em;
     margin-left: .5em;
+    
+}
+.edit-btn{
+    color: rgb(0, 185, 0);
+}
+.delete-btn{
+    color: red;
 }

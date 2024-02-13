@@ -52,3 +52,24 @@ def signupPage(request):
 def logoutPage(request):
     logout(request)
     return redirect('home')
+
+
+
+
+def adminLogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if not User.objects.filter(email = username).exists():
+            return redirect('adminlogin')
+        user = authenticate(email = username, password = password)
+        if user is None:
+            messages.info(request, 'Incorrect password')
+            return redirect('login')
+        else:
+            if user.is_superuser:
+                login(request, user)
+                return redirect('dashboard')
+            else:
+                return redirect('login')
+    return render(request, 'adminlogin/adminlogin.html')

@@ -1,0 +1,35 @@
+.report-heading{
+    margin-bottom: 1em;
+}
+.report-item{
+    border: 1px solid  rgb(0, 185, 0);
+    padding: .5em 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.reports-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+.user-report-container{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+}
+.report-resolve-btn{
+    border: 1px solid rgb(0, 185, 0);
+    padding: .5em 1em;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color:transparent;
+    color: rgb(0, 185, 0);
+    transition: all .3s;
+}
+
+.report-resolve-btn:hover{
+    background-color: rgb(0, 185, 0);
+    color: white;
+}

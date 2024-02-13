@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'css/manageusers/manageusers.css' %}">
 {% endblock %}
 {% block start %}
-<h1>Manage User</h1>
+<h2>Manage User</h2>
 <div class="manageUser">
     {% for user in customers %}
         {% if not user.is_superuser %}
