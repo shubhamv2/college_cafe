@@ -1,27 +1,37 @@
 {% extends 'adminbase/adminbase.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/manageusers/manageusers.css' %}">
+<link rel="stylesheet" href="{% static 'css/manageusers/manageusers.css' %}">
 {% endblock %}
 {% block start %}
-<h2>Manage User</h2>
 <div class="manageUser">
+    <h2>Manage User</h2>
     {% for user in customers %}
-        {% if not user.is_superuser %}
-        <div class="manageUser-items">
-            <div class="user-manage-items">
-                <p class="user-manage-para"><strong>Name:</strong>{{user.name}}</p>
-                <p class=""><strong>Email:</strong>{{user.email}}</p>
-            </div>
-            <div class="date-time">
-                <p>{{user.join_date}}</p>
-            </div>
-            <div class="user-manage-btn">
-                <a href="{% url 'edituser' user.id %}" class="edit-btn manage-btn"><i class="fa-solid fa-pen-to-square"></i></a>
-                <a href="{% url 'deleteuser' user.id %}" class="delete-btn manage-btn"><i class="fa-solid fa-trash-can"></i></a>
+    {% if not user.is_superuser %}
+    <div class="manageUser-items">
+        <div class="user-manage-items">
+            {% if user.profile_img %}
+            <img class="user-manage-profile" src="{{user.profile_img.url}}" alt="">
+            {% else %}
+            <img class="user-manage-profile" src="{% static 'imgs/pngegg.png' %}" alt="">
+            {% endif %}
+            <div class="user-info">
+                <h4 class="user-manage-name">{{user.name}}</h4>
+                <p class="user-info-item"><span class="user-info-span">Email:</span>{{user.email}}</p>
+                <p class="user-info-item"><span class="user-info-span">Phone:</span>{{user.phone}}</p>
+                <p class="user-info-item date"><span class="user-info-span">Join Date:</span>{{user.join_date}}</p>
+
             </div>
         </div>
-        {% endif %}
+        <div class="user-manage-btn">
+            <a href="{% url 'edituser' user.id %}" class="edit-btn manage-btn"><i
+                    class="fa-solid fa-pen-to-square"></i></a>
+            <a href="{% url 'deleteuser' user.id %}" class="delete-btn manage-btn"><i
+                    class="fa-solid fa-trash-can"></i></a>
+        </div>
+
+    </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}

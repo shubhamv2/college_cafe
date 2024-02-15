@@ -47,6 +47,10 @@ def menu(request, category_name):
     
     if categories:
         food_items = food_items.filter(food_category__food_category__in = categories)
+
+    if selected_meal_type:
+        food_items = food_items.filter(food_subcategory__in=selected_meal_type)
+ 
     
 
     total_items = food_items.count()
@@ -79,6 +83,29 @@ def contact(request):
         
     return render(request, 'contact/contact.html')
 
+
+@login_required(login_url='login')
+def changeDetails(request):
+    user = User.objects.get(email = request.user.email)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            password = request.POST.get('password')
+            profile = request.FILES.get('profile')
+            if name :
+                user.name = name
+            if phone:
+                user.phone = phone
+            if profile:
+                user.profile_img = profile
+            if password:
+                user.set_password(password)
+            user.save()
+            return redirect('home')
+    context = {'user':user}
+
+    return render(request, 'changedetails/changedetails.html',context)
 
 
 # Home page review

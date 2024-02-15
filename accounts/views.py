@@ -65,7 +65,7 @@ def adminLogin(request):
         user = authenticate(email = username, password = password)
         if user is None:
             messages.info(request, 'Incorrect password')
-            return redirect('login')
+            return redirect('adminlogin')
         else:
             if user.is_superuser:
                 login(request, user)

@@ -13,6 +13,6 @@ class FoodItem(models.Model):
     food_subcategory = models.CharField(max_length=50)
     food_desc = models.TextField(null=False, blank=False)
     food_image = models.ImageField(upload_to='items/', null=False, blank=False)
-
+    created_at = models.DateTimeField(auto_now_add = True)
     def __str__(self):
         return self.food_name

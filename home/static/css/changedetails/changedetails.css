@@ -1,0 +1,53 @@
+
+.change-details-container
+{
+    height: 100%;
+    width: 100%;
+}
+h3{
+    font-weight: 400;
+}
+.change-form{
+    width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1em .5em;
+    padding: 1em;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.042);
+    background-color: white;
+
+}
+.change-item-container{
+    display: flex;
+    flex-direction: column;
+    gap: .3em;
+}
+
+.change-item-container input{
+    padding: 1em;
+    outline: none;
+    border-radius: 5px;
+    background-color: #F4F6F6 ;
+    border: none;
+}
+.change-details-container input:focus{
+    outline: 1px solid rgb(0, 185, 0);
+}
+
+.submit-btn{
+    font-size: 1em;
+    padding: .8em 0;
+    font-weight: 500;
+    background-color: rgb(0, 185, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+@media screen  and (max-width: 600px ){
+    .change-form{
+        width: 100%;
+    
+    }
+}

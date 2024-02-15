@@ -5,38 +5,41 @@
 {% endblock %}
 {% block start %}
 <div class="order-container">
-    
+
     <div class="order-left-container">
-        <h2 >Your Orders</h2>
+        <h2 class="top-heading">Your Orders</h2>
         {% if not orders %}
-            <p>You haven't ordered yet!</p>
+        <p>You haven't ordered yet!</p>
         {% else %}
-        {% for order in orders %}
-        {% for item in order.orderitem_set.all %}
-        <div class="user-order-container">
-            <div class="user-order-details">
-                <img src="/media/{{item.food_item.food_image}}" alt="" class="user-order-img">
-                <div class="order-price-name">
-                    <p>{{item.food_item.food_name}}</p>
-                    <div class="price-quantity">
-                        <p>&#8377; {{item.food_item.food_price}}</p>
-                        <p>Qty: {{item.quantity}}</p>
+        <div class="order-inner-container">
+
+            {% for order in orders %}
+            {% for item in order.orderitem_set.all %}
+            <div class="user-order-container">
+                <div class="user-order-details">
+                    <img src="/media/{{item.food_item.food_image}}" alt="" class="user-order-img">
+                    <div class="order-price-name">
+                        <p>{{item.food_item.food_name}}</p>
+                        <div class="price-quantity">
+                            <p>&#8377; {{item.food_item.food_price}}</p>
+                            <p>Qty: {{item.quantity}}</p>
+                        </div>
                     </div>
                 </div>
+                <form action="{% url 'cancelorder' order_id=order.id  item_id=item.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="cancel-btn" value="Cancel">
+                </form>
             </div>
-            <form action="{% url 'cancelorder' order_id=order.id  item_id=item.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="cancel-btn" value="Cancel">
-            </form>
-        </div>
 
-        {% endfor %}
-        {% endfor %}
-        {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
 
     <div class="order-right-container">
-        <h2 class="user-orders-heading">Total order amount</h2>
+        <h2 class="top-heading">Total order amount</h2>
         <div class="order-price-info">
             <table>
                 <thead>
@@ -51,7 +54,7 @@
                     {% load custom_filters %}
                     {% for order in orders %}
                     {% for item in order.orderitem_set.all %}
-                   
+
                     <tr>
                         <td>{{item.food_item.food_name}}</td>
                         <td>{{item.quantity}}</td>
@@ -63,7 +66,7 @@
 
                 </tbody>
             </table>
-            <p>Total Order Amount: &#8377; {{total_amount}}</p>
+            <p class="total-amount-heading"><strong>Total Order Amount:</strong> &#8377; {{total_amount}}</p>
         </div>
     </div>
 </div>

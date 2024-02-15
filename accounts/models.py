@@ -5,9 +5,9 @@ from .manager import UserManager
 
 
 class User(AbstractBaseUser,PermissionsMixin):
-    name = models.CharField(max_length = 50, blank = False, null = False)
+    name = models.CharField(max_length = 100, blank = False, null = False)
     email = models.EmailField(blank = False, null = False, unique=True)
-    phone = models.CharField(max_length = 13, blank = False, null = False)
+    phone = models.CharField(max_length = 13, blank = True, unique=True)
     profile_img = models.ImageField(upload_to='profiles/')
     is_active = models.BooleanField(default = True)
     is_staff = models.BooleanField(default = False)

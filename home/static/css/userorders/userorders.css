@@ -1,14 +1,23 @@
 .order-container{
-    display: flex;
+    display: flex; 
     gap: 1em;
+    flex:1;
+}
+.container{
+    display: flex;
 }
 
 .order-left-container{
     flex:1;
+    
+    
+}
+
+.order-inner-container{
     display: flex;
     flex-direction: column;
     gap:1em;
-    
+    flex: 1;
 }
 .order-right-container{
     flex:1;
@@ -60,8 +69,8 @@
     display: flex;
     gap: .5em;
 }
-.user-orders-heading{
-    margin-bottom: .5em;
+.top-heading{
+    margin-bottom: 1em;
 }
 table {
     border-collapse: collapse;
@@ -78,7 +87,13 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+.total-amount-heading{
+    margin-top: 1em;
+}
 @media screen and (max-width: 600px) {
+    .container{
+        flex-direction: column;
+    }
     .order-container{
         display: flex;
         flex-direction: column;

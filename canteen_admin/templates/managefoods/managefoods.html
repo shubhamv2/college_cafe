@@ -5,7 +5,7 @@
 {% endblock %}
 {% block start %}
 <div class="food-items-container">
-    <h1>Manage Food Items </h1>
+    <h2>Manage Food Items </h2>
     {% for item in foodItems %}
         <div class="food-item-cards">
             <div class="food-items">
@@ -15,9 +15,10 @@
                 </div>
                 <div class="food-details">
                     <h3>
-                        {{item.food_name}}
-                        
+                        {{item.food_name}}     
                     </h3>
+                    <p><span class="food-item-span">Price:</span>&#8377;{{item.food_price}}</p>
+                    <p><span class="food-item-span">Added On:</span>{{item.created_at}}</p>
                 </div>
             </div>
             <div class="manage-btns">

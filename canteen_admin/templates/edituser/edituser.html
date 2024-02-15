@@ -5,27 +5,24 @@
 {% endblock %}
 {% block start %}
 <form class="customer-form" method="post">
+    {% csrf_token %}
         <h2 class="admin-dashboard-heading">Add Customer</h2>
-        {% csrf_token %}
         <div class="customer-detail-wrapper">
             <label for="c-name">Full Name</label>
             <input class="customer-info" type="text" id="c-name" name="customer-name" placeholder="Full Name" value="{{userdetails.name}}">
         </div>
-        <div class="customer-detail-wrapper">
-            <label for="c-email">Email</label>
-            <input value="{{userdetails.email}}" class="customer-info" type="email" id="c-email" name="customer-email" placeholder="Email">
-        </div>
+     
         <div class="customer-detail-wrapper">
             <label for="c-phone">Phone</label>
-            <input value="{{userdetails.phone}}" class="customer-info" type="phone" id="c-phone" name="customer-phone" placeholder="Phone">
+            <input  class="customer-info" type="text" id="c-phone" name="customer-phone" placeholder="Phone" value="{{userdetails.phone}}">
         </div>
         <div class="customer-detail-wrapper">
             <label for="c-password">Password</label>
-            <input class="customer-info" type="password" id="c-password" name="customer-phone" placeholder="Password" value="{{userdetails.password}}">
+            <input class="customer-info" type="password" id="c-password" name="customer-phone" placeholder="Password">
         </div>
         <div class="customer-detail-wrapper">
             <label for="c-profile">Upload Profile</label>
-            <input class="customer-info profile-input" type="file" name="customer-profile" id="c-profile" value="{{userdetails.profile_img}}" >
+            <input class="customer-info profile-input" type="file" name="customer-profile" id="c-profile"  >
         </div>
         <button type="submit" class="add-button">Submit</button>
     </form>

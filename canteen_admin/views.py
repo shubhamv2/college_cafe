@@ -25,8 +25,8 @@ def addUser(request):
         customer_name = request.POST.get('customer-name')
         customer_phone = request.POST.get('customer-phone')
         customer_email = request.POST.get('customer-email')
-        customer_password = request.POST.get('customer-email')
-        customer_profile = request.POST.get('customer-profile')
+        customer_password = request.POST.get('customer-password')
+        customer_profile = request.FILES.get('customer-profile')
         if User.objects.filter(email = customer_email).exists():
             return redirect('adduser')
         create_customer = User.objects.create(
@@ -35,7 +35,7 @@ def addUser(request):
             phone = customer_phone,
             profile_img = customer_profile,
         )
-        create_customer.check_password(customer_password)
+        create_customer.set_password(customer_password)
         create_customer.save()
         return redirect('adduser')
         
@@ -129,23 +129,22 @@ def deleteFoodItem(reqeust, id):
 
 @admin_required
 def editUser(request, id):
-    userInstance = get_object_or_404(User, pk = id)
+    userInstance = User.objects.get(pk = id)
     if request.method == 'POST':
         customer_name = request.POST.get('customer-name')
         customer_phone = request.POST.get('customer-phone')
-        customer_email = request.POST.get('customer-email')
-        customer_password = request.POST.get('customer-email')
-        customer_profile = request.POST.get('customer-profile')
-        if User.objects.filter(email = customer_email).exists():
-            return redirect('manageusers')
-        
-        user = User.objects.filter(email = customer_email)
-        user.name = customer_name
-        user.email = customer_email
-        user.phone = customer_phone
-        user.profile_img = customer_profile
-        user.set_password(customer_password)
-        user.save()
+        customer_password = request.POST.get('customer-password')
+        customer_profile = request.FILES.get('customer-profile')
+        print(customer_phone)
+        # if customer_name:
+        #     userInstance.name = customer_name
+        # if customer_phone:
+        #     userInstance.phone = customer_phone
+        # if customer_profile:
+        #     userInstance.profile_img = customer_profile
+        # if customer_password:
+        #     userInstance.set_password(customer_password)
+        # userInstance.save()
         return redirect('manageusers')
     context = {'userdetails':userInstance}
     return render(request, 'edituser/edituser.html',context)

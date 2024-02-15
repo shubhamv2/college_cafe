@@ -1,24 +1,48 @@
-.manageUser{
-    margin-top: 1em;
-    padding: .5em 1.5em;
-    gap: 1em;
-}
 .manageUser-items{
     display: flex;
+    gap: .5em;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin: .5em 0;
-    padding: 1em;
+    margin: 1em 0;
+    padding: 1.5em;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.128);
 }
-strong{
-    margin-right: .3em;
+.user-info{
+    display: flex;
+    flex-direction: column;
+    gap: .3em;
+}
+.user-manage-items{
+    display: flex;
+    align-items: start;
+    gap: 1em;
+    word-break: break-all;
 }
 
 .user-manage-para{
     margin-bottom: .3em;
 }
-
+.date{
+    color: rgba(11, 11, 11, 0.681);
+}
+.user-manage-profile{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 100%;
+}
+.user-info-span{
+    margin-right: .4em;
+    font-weight:500;
+    color: rgba(0, 0, 0, 0.683);
+}
+.user-manage-btn{
+    display: flex;
+    margin-left: auto;
+    align-items: end;
+}
 .manage-btn{
     font-size: 1.5em;
     margin-left: .5em;
@@ -29,4 +53,10 @@ strong{
 }
 .delete-btn{
     color: red;
+}
+
+@media screen  and (max-width: 600px) {
+    .manageUser-items{
+        padding: 1em;
+    }
 }

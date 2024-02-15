@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/changedetails/changedetails.css' %}">
+{% endblock %}
+{% block start %}
+    <div class="change-details-container">
+        <form action="{% url 'changedetails' %}" method="post" enctype="multipart/form-data" class="change-form">
+            {% csrf_token %}
+            <h3>Change user details</h3>
+            <div class="user-fname change-item-container">
+                <label for="user-name">Name</label>
+                <input type="text" id="user-name" placeholder="Name" name="name" value="{{user.name}}">
+            </div>
+            <div class="user-phone change-item-container">
+                <label for="user-phone">Phone</label>
+                <input type="text" id="user-phone" placeholder="Phone" name="phone" value="{{user.phone}}">
+            </div>
+            <div class="user-password change-item-container">
+                <label for="user-password">Password</label>
+                <input type="password" id="user-password" name="password" placeholder="Password">
+            </div>
+            <div class="user-phone change-item-container">
+                <label for="user-profile">Upload Image</label>
+                <input type="file" id="user-profile" name="profile" value="{{user.profile_img}}">
+            </div>
+
+            <button class="submit-btn" type="submit">Submit</button>
+
+        </form>
+    </div>
+{% endblock %}

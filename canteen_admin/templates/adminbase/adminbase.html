@@ -20,9 +20,11 @@
             <a class="brand-name" href="{% url 'dashboard' %}">
                 CollegeCafe Admin
             </a>
-            <div>
+            <div class="admin-side-bar">
                 <a class="visit-site-btn" href="{% url 'home' %}">Visit Site</a>
-                <a href="" class="admin-profile"><img src="{% static 'img/male_profile.png' %}" alt=""></a>
+                <div id="hamburger-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
             </div>
         </nav>
     </header>
