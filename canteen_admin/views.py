@@ -151,12 +151,6 @@ def editUser(request, id):
 
 
 @admin_required
-def editFood(request,id):
-    item = FoodItem.objects.get(pk = id)
-    context = {'item':item}
-    return render(request, 'editfood/editfood.html', context)
-
-@admin_required
 def orders(request):
     all_orders = Order.objects.all().order_by('-created_at')
     context = {'orders':all_orders}
