@@ -135,20 +135,26 @@ def editUser(request, id):
         customer_phone = request.POST.get('customer-phone')
         customer_password = request.POST.get('customer-password')
         customer_profile = request.FILES.get('customer-profile')
-        print(customer_phone)
-        # if customer_name:
-        #     userInstance.name = customer_name
-        # if customer_phone:
-        #     userInstance.phone = customer_phone
-        # if customer_profile:
-        #     userInstance.profile_img = customer_profile
-        # if customer_password:
-        #     userInstance.set_password(customer_password)
-        # userInstance.save()
+        if customer_name:
+            userInstance.name = customer_name
+        if customer_phone:
+            userInstance.phone = customer_phone
+        if customer_profile:
+            userInstance.profile_img = customer_profile
+        if customer_password:
+            userInstance.set_password(customer_password)
+        userInstance.save()
         return redirect('manageusers')
     context = {'userdetails':userInstance}
     return render(request, 'edituser/edituser.html',context)
 
+
+
+@admin_required
+def editFood(request,id):
+    item = FoodItem.objects.get(pk = id)
+    context = {'item':item}
+    return render(request, 'editfood/editfood.html', context)
 
 @admin_required
 def orders(request):

@@ -18,13 +18,24 @@
     <header class="nav-header">
         <nav class="navbar">
             <a class="brand-name" href="{% url 'dashboard' %}">
-                CollegeCafe Admin
+                <img class="brand-logo" src="{% static 'imgs/logo/CollegeCafe.png' %}" alt="brand-logo"> 
+                <span class="admin">
+                    Admin
+                </span>
             </a>
             <div class="admin-side-bar">
                 <a class="visit-site-btn" href="{% url 'home' %}">Visit Site</a>
-                <div id="hamburger-icon">
-                    <i class="fa-solid fa-bars"></i>
+                <div class="user-and-ham">
+                    {% if request.user.profile_img %}
+                    <img src="{{request.user.profile_img.url}}" alt="user-icon" class="user-icon">
+                    {% else %}
+                    <img src="{% static 'imgs/pngegg.png' %}" alt="user-icon" class="user-icon">
+                    {% endif %}
+                    <div id="hamburger-icon">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
                 </div>
+
             </div>
         </nav>
     </header>
@@ -75,10 +86,14 @@
            </a>
 
             <a href="{% url 'reports' %}" class="left-container-items">
-
                 <span class="left-item-wrapper"><i class="fa-solid fa-flag"></i>Reports</span>
 
+                <span class="report-count-box">
+                    
+                </span>
+
             </a>
+
         </div>
         <div class="right-container">
             {% block start %}

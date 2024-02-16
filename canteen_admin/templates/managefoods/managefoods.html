@@ -22,6 +22,8 @@
                 </div>
             </div>
             <div class="manage-btns">
+                <a href="{% url 'editfood' item.id %}" class="edit-btn manage-btn"><i
+                    class="fa-solid fa-pen-to-square"></i></a>
                 <a href="{% url 'deletefooditem' item.id %}" class="delete-item-btn"><i class="fa-solid fa-trash-can"></i></a>
             </div>
         </div>

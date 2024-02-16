@@ -1,0 +1,49 @@
+{% extends 'adminbase/adminbase.html' %}
+{% load static %}
+{% block start %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/addfood/addfood.css' %}">
+{% endblock %}
+<div class="AddFood">
+    <h2>Edit Food</h2>
+    <form method="post" class="addItemForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="food_details_container">
+            <label for="food_name">Food Name</label>
+            <input type="text" id="food_name" name="foodname" class="foodInputTag" placeholder="Food Name" value="{{item.food_name}}">
+        </div>
+        <div class="food_details_container">
+            <label for="food_category">Food Category</label>
+            <select name="foodcategory" id="food_category">
+                <option value="none" selected>None</option>
+                {% for category in categories %}
+                    <option value="{{category}}">{{category}}</option>
+                {% endfor %}
+            </select>
+            
+        </div>  
+        <div class="food_details_container">
+            <label for="food_category">Food SubCategory</label>
+            <select name="foodsubcategory" id="food_category">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snack">Snack</option>
+            </select>
+        </div>
+        <div class="food_details_container">
+            <label for="food_price">Food Price</label>
+            <input type="number" id="food_price" name="foodprice" class="foodInputTag" placeholder="Food Price" value="{{item.food_price}}">
+        </div>
+        <div class="food_details_container">
+            <label for="food_desc">Food Description</label>
+            <textarea type="text" id="food_desc" name="fooddesc" class="foodInputTag foodTextArea" placeholder="Food Description"></textarea value={{item.desc}}>
+        </div>
+        <div class="food_details_container">
+            <label for="food_image">Food Image</label>
+            <input type="file" id="food_image" name="foodimage" class="foodInputTag food-image">
+        </div>
+        <button class="addItemBtn" type="submit" id="addItemBtn">Add Item</button>
+    </form>
+</div>
+{% endblock %}

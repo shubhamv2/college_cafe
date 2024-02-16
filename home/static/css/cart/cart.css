@@ -49,29 +49,16 @@
 }
 
 
-.online-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em .5em;
-    background-color: white;
-
-}
-
 .payment-options {
     display: flex;
     flex-direction: column;
-    gap: .5em;
+    gap: 1em;
     margin: 1em 0;
 }
 
-.cash-option {
+.payment{
     padding: 1em .5em;
     background-color: white;
-}
-
-.online-option img {
-    width: 100px;
 }
 
 

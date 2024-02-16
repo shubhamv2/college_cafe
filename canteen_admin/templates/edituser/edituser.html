@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="{% static 'css/adduser/adduser.css' %}">
 {% endblock %}
 {% block start %}
-<form class="customer-form" method="post">
+<form class="customer-form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-        <h2 class="admin-dashboard-heading">Add Customer</h2>
+        <h2 class="admin-dashboard-heading">Edit Customer</h2>
         <div class="customer-detail-wrapper">
             <label for="c-name">Full Name</label>
             <input class="customer-info" type="text" id="c-name" name="customer-name" placeholder="Full Name" value="{{userdetails.name}}">
@@ -18,7 +18,7 @@
         </div>
         <div class="customer-detail-wrapper">
             <label for="c-password">Password</label>
-            <input class="customer-info" type="password" id="c-password" name="customer-phone" placeholder="Password">
+            <input class="customer-info" type="password" id="c-password" name="customer-password" placeholder="Password">
         </div>
         <div class="customer-detail-wrapper">
             <label for="c-profile">Upload Profile</label>

@@ -6,12 +6,10 @@
     min-height: 100vh;
     gap: 1em;
     align-items: start;
-    background-color: #F8F9F9;
 }
 
 .menu-box-1{
     flex: 1;
-    background-color: white;
     padding: 1em;
    
 

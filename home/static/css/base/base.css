@@ -9,14 +9,33 @@
     list-style:none;
     text-decoration: none;
 }
-/* Css for navbar */
-.navbar-wrapper{
-    width: 100%;
-}
 body{
-    background-color: #F8F9F9;
+    background-color: #FDFEFE;
+}
+/* Width */
+::-webkit-scrollbar {
+    width: 5px; /* width of the scrollbar */
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+    background-color:#EBEDEF;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(203, 203, 203, 0.759); /* color of the scrollbar handle */
+    background: #D6DBDF;
+}
+
+
+
+/* Css for navbar */
+
+.navbar-wrapper{
+    width: 100%;
+    background-color:  #FDFEFE ;
+}
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -128,8 +147,8 @@ body{
     cursor: pointer;
 }
 .user-png-icon img{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     object-fit: cover;
     object-position: top;
@@ -137,17 +156,17 @@ body{
 
 
 .user-popup{
-    width:30%;
+    width:250px;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     display: none;
-    background-color: white;
+    /* background-color: #85929E ; */
+    background-color: rgb(0, 185, 0);
     z-index: 9999;
     padding: 1em;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.122);
-    border-radius: 5px;
     height: 100vh;
     transition: .5s;
 
@@ -158,7 +177,7 @@ body{
     flex-direction: column;
 }
 .user-utility a{
-    color: black;
+    color: white;
     width: 100%;
     padding: 1em;
 
@@ -169,10 +188,11 @@ body{
     color: rgb(0, 185, 0);
 }
 
-.user-name{
+.popup-user-name{
     text-align: center;
     margin-top: .5em;
-    font-size: 1em;
+    font-size: 1.1em;
+    color: white;
 }
 .close-popup{
     position: absolute;
@@ -180,7 +200,6 @@ body{
     top: 10px;
     cursor: pointer;
     font-size: 1.5em;
-    color: red;
 }
 
 .user-img{
@@ -193,8 +212,12 @@ body{
 }   
 
 .fa-xmark{
-    color: red;
+    color: black;
+    
 
+}
+.popup-x{
+    color: white;
 }
 
 
@@ -206,8 +229,9 @@ body{
 
 
 .container{
-    padding: 0 1em;
+    padding: 1.5em 1em;
     min-height:  100vh;
+
 }
 
 

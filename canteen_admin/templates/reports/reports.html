@@ -11,9 +11,9 @@
         <div class="user-report-container">
             <img src="{% static 'imgs/pngegg.png' %}" alt="">
             <div class="user-info">
-
                 <h3 class="user-name">{{report.user_name}}</h3>
-                <p class="report"><strong>Message:</strong> {{report.message}}</p>
+                <p><span class="message-head">Email:</span> <span class="message">{{report.user_email}}</span></p>
+                <p class="report"><span class="message-head">Message:</span><span class="message">{{report.message}}</span></p>
             </div>
         </div>
         <form action="{% url 'deletereport' report.id %}" method="post">

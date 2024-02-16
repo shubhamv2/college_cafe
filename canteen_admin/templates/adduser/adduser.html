@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{% static 'css/adduser/adduser.css' %}">
 {% endblock %}
 {% block start %}
+<h2 class="admin-dashboard-heading">Add Customer</h2>
 <form class="customer-form" method="post" enctype="multipart/form-data">
-        <h2 class="admin-dashboard-heading">Add Customer</h2>
         {% csrf_token %}
         <div class="customer-detail-wrapper">
             <label for="c-name">Full Name</label>

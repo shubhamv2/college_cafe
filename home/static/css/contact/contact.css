@@ -1,14 +1,20 @@
 .contact-wrapper{
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 1em;
 }
 
 .contact-left-box{
     flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
 }
 .contact-right-box{
     flex:1;
+    display: flex;
+    flex-direction: column;
+    background-color: #FDFEFE ;
+    border-radius: 10px;
   
 }
 

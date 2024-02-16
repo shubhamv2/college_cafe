@@ -3,13 +3,9 @@
     gap: 1em;
     flex:1;
 }
-.container{
-    display: flex;
-}
 
 .order-left-container{
     flex:1;
-    
     
 }
 
@@ -17,7 +13,6 @@
     display: flex;
     flex-direction: column;
     gap:1em;
-    flex: 1;
 }
 .order-right-container{
     flex:1;
@@ -28,8 +23,9 @@
     gap:1em;
     flex-wrap: wrap;
     align-items: center;
-    border: 1px solid rgb(0, 185, 0);
-    padding: .5em;
+    padding: .8em;
+    background-color: #F2F3F4 ;
+    border-radius: 20px;
 }
 .user-order-img{
     width: 80px;
@@ -46,14 +42,17 @@
 .order-price-name{
     display: flex;
     flex-direction: column;
-    gap: .5em;
+    gap: .3em;
 }
 
+.order-item-heading{
+    font-weight: 400;
+}
 .cancel-btn{
     background-color: transparent;
-    border: 2px solid rgb(0, 185, 0);
+    border: 1px solid rgb(0, 185, 0);
     color: rgb(0, 185, 0);
-    padding: .5em 1em;
+    padding: .6em 1em;
     border-radius: 5px;
     font-weight: 500;
     cursor: pointer;
@@ -67,7 +66,14 @@
 
 .price-quantity{
     display: flex;
-    gap: .5em;
+    flex-direction: column;
+    gap: .2em;
+    font-size: .9em;
+}
+
+.price-quantity span{
+    margin-right: .3em;
+    font-weight: 400;
 }
 .top-heading{
     margin-bottom: 1em;
@@ -81,10 +87,6 @@ th, td {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
 }
 
 .total-amount-heading{

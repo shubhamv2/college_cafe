@@ -6,13 +6,12 @@ function userProfileDetails() {
   const userPopup = document.querySelector('.user-popup');
   user.addEventListener('click', (e) => {
     userPopup.style.display = "block";
-    document.body.style.overflow = 'hidden';
 
   })
 
   close.addEventListener('click', (e) => {
     userPopup.style.display = "none";
-    document.body.style.overflow = 'auto';
+ 
   })
 
   document.addEventListener('click', function (e) {
@@ -20,7 +19,7 @@ function userProfileDetails() {
     let isClickPopup = userPopup.contains(e.target);
     if (!isClickIcon && !isClickPopup) {
       userPopup.style.display = "none";
-      document.body.style.overflow = 'auto';
+   
     }
   })
 
@@ -36,13 +35,13 @@ function hamburger() {
       hamburgerIcon.children[0].classList.add('fa-xmark')
       hamburgerIcon.children[0].classList.remove('fa-bars')
       navbarNavigator.style.visibility = 'visible'
-      document.body.style.overflow = 'hidden'
+  
     }
     else {
       hamburgerIcon.children[0].classList.add('fa-bars')
       hamburgerIcon.children[0].classList.remove('fa-xmark')
       navbarNavigator.style.visibility = 'hidden'
-      document.body.style.overflow = 'auto'
+    
     }
     is_clicked = !is_clicked;
   })

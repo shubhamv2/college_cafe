@@ -1,10 +1,7 @@
 .customer-form{
-    width: 100%;
+    width: 80%;
+}
 
-}
-.admin-dashboard-heading{
-   color: rgb(0, 185, 0);
-}
 
 .customer-detail-wrapper{
     display: flex;
@@ -13,7 +10,6 @@
     gap: .2em;
     margin-top: .7em;
 }
-
 .customer-info{
     padding: .7em;
     font-size: 1em;
@@ -27,6 +23,8 @@
 label{
     font-size: .9em;
 }
+
+
 .profile-input{
     padding-left: 0;
     background-color: transparent;
@@ -38,12 +36,15 @@ label{
     font-size: .9em;
 }
 
+.customer-info:focus{
+    outline:1px solid #2C3E50;
+}
 .add-button{
-    width: 500px;
+    width: 300px;
     margin-top: 1em;
     font-size: 1em;
     padding: .7em 0;
-    background: rgb(0, 185, 0);
+    background: #2C3E50;
     border: none;
     color: white;
     border-radius: .2em;

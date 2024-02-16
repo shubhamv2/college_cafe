@@ -55,14 +55,13 @@ hamburger.addEventListener('click', (e)=>{
         document.body.style.overflow = 'hidden';
         hamburger.children[0].classList.add('fa-xmark')
         hamburger.children[0].classList.remove('fa-bars')
-        hamburger.style.color= 'red';
+     
     }
     else{
         leftContainer.style.display = 'none';
         document.body.style.overflow = 'auto';
         hamburger.children[0].classList.add('fa-bars')
         hamburger.children[0].classList.remove('fa-xmark')
-        hamburger.style.color= 'white';
 
     }
     is_clicked = !is_clicked;

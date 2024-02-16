@@ -42,14 +42,13 @@
                 <label for="">Phone</label>
                 <input type="text" placeholder="Phone number" name="phone">
             </div>
-      
+
         </div>
         <div class="checkout-box2">
             <h3 class="checkout-heading">Your Cart</h3>
             <div class="product-item-container">
                 <div class="cart-container-box">
-                    {% if cart_items|length <= 0 %} 
-                        <p class='empty-cart'>Cart is Empty</p>
+                    {% if cart_items|length <= 0 %} <p class='empty-cart'>Cart is Empty</p>
                         {% else %}
                         {% for cart_item in cart_items %}
                         <div class="cart-item">
@@ -71,27 +70,26 @@
 
                         {% endfor %}
                         <hr>
-                        <p class="total-amount"><strong class="total-amount-strong">Total Amount:</strong> <span class="total-amount-price">&#8377; {{total_amount}}</span></p>
-                    {% endif %}
+                        <p class="total-amount"><strong class="total-amount-strong">Total Amount:</strong> <span
+                                class="total-amount-price">&#8377; {{total_amount}}</span></p>
+                        {% endif %}
 
                 </div>
 
 
                 <div class="payment-options">
                     <h3 class="checkout-heading">Payment Options</h3>
-                    <label for="cash" class="cash-option"><input id="cash" type="radio" name="payment" value="cash">Cash
-                        on
-                        delivery</label>
-                    <div class="cash-option">
-                        Pay with cash upon delivery
+                    <div class="offline-option">
+                        <input id="cash" type="radio" name="payment" value="cash">
+                        <label for="cash" class="payment">Cash on delivery </label>
+
                     </div>
-                    <div class="online-option">
-                        <div class="online-cont">
-                            <input type="radio" name="payment" id="online-pay" value="online">
-                            <label for="online-pay">Online payment</label>
-                        </div>
-                        <img src="../img/paypal.png" alt="">
+
+                    <div class="online-cont">
+                        <input type="radio" name="payment" id="online-pay" value="online">
+                        <label for="online-pay" class="payment">Online payment</label>
                     </div>
+
                 </div>
 
                 <button type="submit" class="order-place-btn">Place Order</button>
