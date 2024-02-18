@@ -62,10 +62,14 @@ def manageUsers(request):
 @admin_required
 def addCategory(request):
     if request.method == 'POST':
-        category = request.POST.get('category')
-        food_category = Category.objects.create(food_category = category)
-        food_category.save()
-        return redirect('addcategory')
+        try:
+            category = request.POST.get('category')
+            if category:
+                food_category = Category.objects.create(food_category = category)
+                food_category.save()
+                return redirect('addcategory')
+        except Exception as e:
+            print(e)
     return render(request, 'addcategory/addcategory.html')
 
 

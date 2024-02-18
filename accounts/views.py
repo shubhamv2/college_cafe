@@ -9,7 +9,7 @@ def loginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         if not User.objects.filter(email = username).exists():
-            messages.info(request,'User doesn\'t exists with these user name')
+            messages.error(request,'User doesn\'t exists with these user name')
             return redirect('login')
         user = authenticate(email = username, password = password)
         if user is None:
@@ -77,5 +77,5 @@ def adminLogin(request):
                 login(request, user)
                 return redirect('dashboard')
             else:
-                return redirect('login')
+                return redirect('adminlogin')
     return render(request, 'adminlogin/adminlogin.html')
