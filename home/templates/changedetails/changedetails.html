@@ -7,14 +7,14 @@
     <div class="change-details-container">
         <form action="{% url 'changedetails' %}" method="post" enctype="multipart/form-data" class="change-form">
             {% csrf_token %}
-            <h3>Change user details</h3>
+            <h3 class="changedetails-heading">Change user details</h3>
             <div class="user-fname change-item-container">
                 <label for="user-name">Name</label>
-                <input type="text" id="user-name" placeholder="Name" name="name" value="{{user.name}}">
+                <input type="text" id="user-name" placeholder="Name" name="name" >
             </div>
             <div class="user-phone change-item-container">
                 <label for="user-phone">Phone</label>
-                <input type="text" id="user-phone" placeholder="Phone" name="phone" value="{{user.phone}}">
+                <input type="text" id="user-phone" placeholder="Phone" name="phone" >
             </div>
             <div class="user-password change-item-container">
                 <label for="user-password">Password</label>
@@ -22,11 +22,14 @@
             </div>
             <div class="user-phone change-item-container">
                 <label for="user-profile">Upload Image</label>
-                <input type="file" id="user-profile" name="profile" value="{{user.profile_img}}">
+                <input type="file" id="user-profile" name="profile">
             </div>
 
             <button class="submit-btn" type="submit">Submit</button>
 
         </form>
     </div>
+    {% block extra_js %}
+        <script src="{% static 'js/changedetails/changedetails.js' %}"></script>
+    {% endblock %}
 {% endblock %}

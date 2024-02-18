@@ -399,7 +399,7 @@ body{
 }
 @media screen and (min-width:1024px){
     .container,.navbar{
-        max-width: 1300px;
+        max-width: 1700px;
         margin: auto;
     }
 }

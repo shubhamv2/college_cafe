@@ -35,6 +35,22 @@ document.addEventListener('DOMContentLoaded', function () {
       }, interval);
   }
 
+  function validateForm(){
+    const reviewField = document.getElementById('review-field');
+    const messageDiv = document.getElementById('message-div')
+    const sendBtn = document.querySelector('.send-btn')
+    const message = document.getElementById('message')
+    sendBtn.addEventListener('click',(e)=>{
+        if(reviewField.value.trim() === ''){
+            e.preventDefault()
+            reviewField.style.border = '1px solid red';
+            message.textContent = 'Review field is empty!';
+            message.style.color = 'red';
+        }
+
+    })
+  }
+  validateForm()
   initializeSwiper('.swiper1', 6000, 3, 3);
   initializeSwiper('.swiper3', 3000, 1, 3);
 });

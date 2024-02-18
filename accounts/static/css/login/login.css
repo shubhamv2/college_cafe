@@ -85,8 +85,13 @@ body, html{
     border: none;
     border-radius: 5px;
     margin-top:.5em;
+    cursor: pointer;
 }
-
+.error-message{
+    color: red;
+    font-size: .6em;
+    margin-bottom: .2em;
+}
 @media screen and (max-width: 600px){
     .login-form{
         position: static;

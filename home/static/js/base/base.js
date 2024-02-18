@@ -1,5 +1,3 @@
-// 
-// Function for fixing navbar at top
 function userProfileDetails() {
   const user = document.querySelector('.user-png-icon');
   const close = document.querySelector('.close-popup');
@@ -46,6 +44,12 @@ function hamburger() {
     is_clicked = !is_clicked;
   })
 }
+
+
+
+
+
+
 
 hamburger();
 

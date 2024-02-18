@@ -19,25 +19,36 @@ def dashboard(request):
         total_amount += sum(item.price * item.quantity for item in order_items)
     context = {'totalUsers':totalUsers, 'currentDate':currentDate, 'totalorders':orders,'totalamount':total_amount}
     return render(request, 'dashboard/dashboard.html', context)
+
+
+
+
 @admin_required
 def addUser(request):
     if request.method == 'POST':
-        customer_name = request.POST.get('customer-name')
-        customer_phone = request.POST.get('customer-phone')
-        customer_email = request.POST.get('customer-email')
-        customer_password = request.POST.get('customer-password')
-        customer_profile = request.FILES.get('customer-profile')
-        if User.objects.filter(email = customer_email).exists():
+        try:
+            customer_name = request.POST.get('customer-name')
+            customer_phone = request.POST.get('customer-phone')
+            customer_email = request.POST.get('customer-email')
+            customer_password = request.POST.get('customer-password')
+            customer_profile = request.FILES.get('customer-profile')
+            if not all([customer_email, customer_name, customer_password, customer_phone]):
+                return redirect('adduser');
+        
+
+            if User.objects.filter(email = customer_email).exists():
+                return redirect('adduser')
+            create_customer = User.objects.create(
+                name = customer_name,
+                email = customer_email,
+                phone = customer_phone,
+                profile_img = customer_profile,
+            )
+            create_customer.set_password(customer_password)
+            create_customer.save()
             return redirect('adduser')
-        create_customer = User.objects.create(
-            name = customer_name,
-            email = customer_email,
-            phone = customer_phone,
-            profile_img = customer_profile,
-        )
-        create_customer.set_password(customer_password)
-        create_customer.save()
-        return redirect('adduser')
+        except Exception as e:
+            return redirect('adduser');
         
     return render(request, 'adduser/adduser.html')
 
@@ -67,24 +78,31 @@ def manageCategories(request):
 @admin_required
 def addFood(reqeust):
     if reqeust.method == 'POST':
-        food_name = reqeust.POST.get('foodname')
-        food_price = reqeust.POST.get('foodprice')
-        food_category = reqeust.POST.get('foodcategory')
-        food_subcategory = reqeust.POST.get('foodsubcategory')
-        food_desc = reqeust.POST.get('fooddesc')
-        food_img = reqeust.FILES.get('foodimage')
-        food_category_instance = Category.objects.get(food_category = food_category)
-        FoodItem.objects.create(
-            food_name = food_name,
-            food_price = food_price,
-            food_category = food_category_instance,
-            food_subcategory = food_subcategory,
-            food_desc = food_desc,
-            food_image = food_img,
-        )
+        try:
+            food_name = reqeust.POST.get('foodname')
+            food_price = reqeust.POST.get('foodprice')
+            food_category = reqeust.POST.get('foodcategory')
+            food_subcategory = reqeust.POST.get('foodsubcategory')
+            food_desc = reqeust.POST.get('fooddesc')
+            food_img = reqeust.FILES.get('foodimage')
+            if all([food_name, food_price, food_category, food_subcategory, food_desc, food_img]):   
+                food_category_instance = Category.objects.get(food_category = food_category)
+                FoodItem.objects.create(
+                    food_name = food_name,
+                    food_price = food_price,
+                    food_category = food_category_instance,
+                    food_subcategory = food_subcategory,
+                    food_desc = food_desc,
+                    food_image = food_img,
+                )
+        except Exception as e:
+            print(e);
     allCategories = Category.objects.all();
     context = {"categories":allCategories}    
     return render(reqeust,'addfood/addfood.html',context)
+
+
+
 @admin_required
 def manageFoods(request):
     allItems = FoodItem.objects.all();

@@ -63,47 +63,54 @@ def about(request):
 # Contact page view
 def contact(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        email = request.POST.get('email')
-        message = request.POST.get('query')
+        try:
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            message = request.POST.get('query')
 
-        if not all([name, phone, email,message]):
-            messages.error(request, 'All fields are required')
-            return redirect('contact')
+            if not all([name, phone, email,message]):
+                messages.error(request, 'All fields are required')
+                return redirect('contact')
 
 
-        report = Report.objects.create(
-            user_name = name,
-            user_email = email,
-            user_phone = phone,
-            message = message,
-        )
-        report.save()
+            report = Report.objects.create(
+                user_name = name,
+                user_email = email,
+                user_phone = phone,
+                message = message,
+            )
+            report.save()
+            return redirect('home')
+        except Exception as e:
+            print(e);
         
     return render(request, 'contact/contact.html')
 
 
 @login_required(login_url='login')
 def changeDetails(request):
-    user = User.objects.get(email = request.user.email)
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            name = request.POST.get('name')
-            phone = request.POST.get('phone')
-            password = request.POST.get('password')
-            profile = request.FILES.get('profile')
-            if name :
-                user.name = name
-            if phone:
-                user.phone = phone
-            if profile:
-                user.profile_img = profile
-            if password:
-                user.set_password(password)
-            user.save()
-            return redirect('home')
-    context = {'user':user}
+    try:
+        user = request.user
+        if request.user.is_authenticated:
+            if request.method == 'POST':
+                name = request.POST.get('name')
+                phone = request.POST.get('phone')
+                password = request.POST.get('password')
+                profile = request.FILES.get('profile')
+                if name :
+                    user.name = name
+                if phone:
+                    user.phone = phone
+                if profile:
+                    user.profile_img = profile
+                if password:
+                    user.set_password(password)
+                user.save()
+                return redirect('home')
+    except Exception as e:
+                print(e)
+    context = {'user':user} 
 
     return render(request, 'changedetails/changedetails.html',context)
 
@@ -113,12 +120,13 @@ def changeDetails(request):
 def review_page(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
-            review = request.POST.get('review')
-            user = request.user
-            Review.objects.create(
-                user = user,
-                review = review,
-            )
+            review = request.POST.get('review','').strip()
+            if review:
+                try:
+                    Review.objects.create(user=request.user, review = review)
+                except Exception as e:
+                    messages.error(request, f'Error: {e}')
+                
             
     return redirect('home')
 

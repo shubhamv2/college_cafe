@@ -21,6 +21,7 @@ class CartItem(models.Model):
         return self.cart.user.email +" " +str(self.quantity)
 
 class Review(models.Model):
+    
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     review = models.TextField(blank = False, null = False)
     created_at = models.DateTimeField(auto_now_add = True)

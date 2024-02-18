@@ -30,22 +30,28 @@ def signupPage(request):
         password = request.POST.get('upassword')
         confPassword = request.POST.get('confpassword')
 
+        if not all ([name, email, phone, password, confPassword]):
+            return redirect('signup')
+
+
         if not password == confPassword:
             messages.info(request, 'Password doesn\'t match')
+            return redirect('signup')
+
         if User.objects.filter(email = email).exists():
             messages.info(request, 'User already exists with this email id')
             return redirect('signup')
-        else:
-            user = User.objects.create(
-                name = name,
-                email = email,
-                phone = phone,
-            )
-            user.set_password(password)
-            user.save()
-            messages.success(request, "Account has been created successfully")
-            login(request, user)
-            return redirect('home')
+ 
+        user = User.objects.create(
+            name = name,
+            email = email,
+            phone = phone,
+        )
+        user.set_password(password)
+        user.save()
+        messages.success(request, "Account has been created successfully")
+        login(request, user)
+        return redirect('home')
     return render(request, 'signup/signup.html')
 
 

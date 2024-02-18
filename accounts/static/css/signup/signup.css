@@ -70,3 +70,8 @@ body, html{
     border: none;
     margin-top:.5em;
 }
+
+.error-message{
+    font-size: .6em;
+    color: red;
+}

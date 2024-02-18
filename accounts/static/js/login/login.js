@@ -29,3 +29,21 @@ inputTags.forEach((inputTag)=>{
         e.target.parentElement.style.outline="";
     })
 })
+
+
+
+const submitBtn = document.getElementById('submit-btn')
+submitBtn.addEventListener('click',(e)=>{
+    document.querySelectorAll('.error-message').forEach(error=> error.remove());
+    inputTags.forEach(element =>{
+        const newElement = document.createElement('div');
+        newElement.textContent = "This is required!";
+        newElement.classList.add('error-message');
+        if(element.value === ""){
+            e.preventDefault();
+            element.parentElement.style.outline = "1px solid red";
+            element.parentElement.parentElement.insertBefore(newElement, element.parentElement)
+        }
+    })
+    
+})

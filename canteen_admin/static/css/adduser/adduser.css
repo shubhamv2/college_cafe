@@ -50,6 +50,11 @@ label{
     border-radius: .2em;
     font-weight: 500;
 }
+.error-message{
+    font-size: .6em;
+    color: red;
+    
+}
 
 @media screen and (max-width: 600px){
     .add-button{

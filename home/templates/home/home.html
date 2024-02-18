@@ -140,7 +140,10 @@
 
 
     <div class="user-reviews">
-        <h1 class="first-sec-title">Share Your Experience</h1>
+        <h1 class="first-sec-title">Share Your Experience</h1>  
+        <div id="message">
+
+        </div>
         <form action="{% url 'review' %}" method="post" class="user-review-form">
             {% csrf_token %}
             <textarea name="review" id="review-field" placeholder="Share your experience"></textarea>

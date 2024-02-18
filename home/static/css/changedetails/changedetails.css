@@ -43,6 +43,11 @@
     border-radius: 5px;
 }
 
+.error-message{
+    font-size: .8em;
+    color: red;
+}
+
 @media screen  and (max-width: 600px ){
     .change-form{
         width: 100%;

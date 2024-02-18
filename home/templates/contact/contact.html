@@ -14,22 +14,25 @@
                 {% csrf_token %}
                 <div class="form-items">
                     <label for="name">Name</label>
-                    <input id="name" name="name" type="text" placeholder="Name">
+                    <input id="name" name="name" type="text" placeholder="Name" class="contact-input">
                 </div>
                 <div class="form-items">
                     <label for="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" placeholder="Phone">
+                    <input type="text" name="phone" id="phone" placeholder="Phone" class="contact-input">
                 </div>
                 <div class="form-items">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email" placeholder="Email">
+                    <input type="text" name="email" id="email" placeholder="Email" class="contact-input">
                 </div>
                 <div class="form-items">
                     <label for="query">What can we help you with?</label>
-                    <textarea name="query" id="query"></textarea>
+                    <textarea name="query" id="query" placeholder="Enter your query..." class="contact-input"></textarea>
                 </div>
                 <button type="submit" class="form-btn">Submit</button>
             </form>
         </div>
     </div>
+{% block extra_js %}
+    <script src="{% static 'js/contact/contact.js' %}"></script>
+{% endblock %}
 {% endblock %}

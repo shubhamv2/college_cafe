@@ -6,27 +6,30 @@
 {% block start %}
 <h2 class="admin-dashboard-heading">Add Customer</h2>
 <form class="customer-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="customer-detail-wrapper">
-            <label for="c-name">Full Name</label>
-            <input class="customer-info" type="text" id="c-name" name="customer-name" placeholder="Full Name">
-        </div>
-        <div class="customer-detail-wrapper">
-            <label for="c-email">Email</label>
-            <input class="customer-info" type="email" id="c-email" name="customer-email" placeholder="Email">
-        </div>
-        <div class="customer-detail-wrapper">
-            <label for="c-phone">Phone</label>
-            <input class="customer-info" type="phone" id="c-phone" name="customer-phone" placeholder="Phone">
-        </div>
-        <div class="customer-detail-wrapper">
-            <label for="c-password">Password</label>
-            <input class="customer-info" type="password" id="c-password" name="customer-password" placeholder="Password">
-        </div>
-        <div class="customer-detail-wrapper">
-            <label for="c-profile">Upload Profile</label>
-            <input class="customer-info profile-input" type="file" name="customer-profile" id="c-profile">
-        </div>
-        <button type="submit" class="add-button">Submit</button>
-    </form>
+    {% csrf_token %}
+    <div class="customer-detail-wrapper">
+        <label for="c-name">Full Name</label>
+        <input class="customer-info" type="text" id="c-name" name="customer-name" placeholder="Full Name">
+    </div>
+    <div class="customer-detail-wrapper">
+        <label for="c-email">Email</label>
+        <input class="customer-info" type="email" id="c-email" name="customer-email" placeholder="Email">
+    </div>
+    <div class="customer-detail-wrapper">
+        <label for="c-phone">Phone</label>
+        <input class="customer-info" type="phone" id="c-phone" name="customer-phone" placeholder="Phone">
+    </div>
+    <div class="customer-detail-wrapper">
+        <label for="c-password">Password</label>
+        <input class="customer-info" type="password" id="c-password" name="customer-password" placeholder="Password">
+    </div>
+    <div class="customer-detail-wrapper">
+        <label for="c-profile">Upload Profile</label>
+        <input class=" profile-input" type="file" name="customer-profile" id="c-profile">
+    </div>
+    <button type="submit" class="add-button">Submit</button>
+</form>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/adduser/adduser.js' %}"></script>
 {% endblock %}
